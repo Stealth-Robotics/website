@@ -177,6 +177,9 @@ ul, ol { padding: 0; list-style: none; }
   text-transform: uppercase;
 }
 .red { color: var(--red-hot); }
+/* Italic FIRST (brand rule) leans into the next word in condensed caps; give the space back.
+   h1/h2 are left alone: there FIRST is usually followed by punctuation, not a word. */
+:is(h3, h4) em, li > em { margin-right: 0.12em; }
 
 /* ───────────────────────── Layout ───────────────────────── */
 .wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
