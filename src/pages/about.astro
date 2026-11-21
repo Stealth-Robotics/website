@@ -1,0 +1,97 @@
+---
+import Layout from "@/layouts/main.astro"
+import Nav from "@/components/Nav.astro"
+import History from "@/components/History.astro"
+import Outreach from "@/components/Outreach.astro"
+import Join from "@/components/Join.astro"
+import Footer from "@/components/Footer.astro"
+import { aboutPage as page } from "@/data/site"
+---
+
+<Layout title={page.meta.title} description={page.meta.description} image="/photos/IMG_5281.jpg">
+  <div class="top">
+    <Nav />
+  </div>
+
+  <main id="main">
+    <section class="intro" aria-labelledby="about-title">
+      <div class="wrap grid">
+        <div class="copy">
+          <h1 id="about-title" class="t-display" data-enter>
+            {page.titleA} <span class="red">{page.titleB}</span>
+          </h1>
+          <p class="t-lead" data-enter="2" set:html={page.lead} />
+          <p class="t-body" data-enter="2" set:html={page.body} />
+          <dl class="plate" data-enter="3">
+            {
+              page.plate.map((p) => (
+                <div>
+                  <dt class="t-label">{p.label}</dt>
+                  <dd class="t-stat">{p.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <figure class="frame chamfer-lg shot" data-enter="2">
+          <img src={page.photo} alt={page.photoAlt} loading="eager" fetchpriority="high" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section how" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 id="how-title" class="t-h2">{page.how.title}</h2>
+        <ul class="how-list">
+          {
+            page.how.items.map((it) => (
+              <li>
+                <h3 class="t-h3" set:html={it.title} />
+                <p set:html={it.text} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <History />
+    <Outreach />
+    <Join />
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Nav is absolutely positioned (it floats over the homepage reel); here it sits over the intro. */
+  .top { position: relative; z-index: 10; }
+
+  .intro { background: var(--hull-0); padding: calc(88px + clamp(2.5rem, 1rem + 5vw, 5rem)) 0 var(--section-y); }
+  .grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
+  .copy { display: grid; gap: 1.4rem; justify-items: start; }
+  .copy h1 { font-size: clamp(2.8rem, 1.2rem + 4.6vw, 5.5rem); }
+  .plate { display: grid; grid-template-columns: repeat(3, auto); box-shadow: inset 0 0 0 1px var(--seam); margin-top: 0.4rem; }
+  .plate div { padding: 0.8rem 1.1rem; box-shadow: inset -1px 0 0 var(--seam); }
+  .plate div:first-child dd { color: var(--red-hot); }
+  .plate dd { margin-top: 0.3rem; font-size: 1.45rem; }
+  .shot { aspect-ratio: 4 / 3; }
+  .shot img { object-position: 55% 40%; }
+
+  .how { background: var(--hull-1); }
+  .how-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .how-list li { padding-top: 1.25rem; box-shadow: inset 0 2px 0 var(--red-hot); }
+  .how-list p { margin-top: 0.75rem; color: var(--ink-2); max-width: 34ch; }
+
+  @media (max-width: 1099px) {
+    .how-list { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 899px) {
+    .intro { padding-top: calc(88px + 1.5rem); }
+    .grid { grid-template-columns: 1fr; }
+    .plate { grid-template-columns: repeat(3, 1fr); width: 100%; }
+  }
+  @media (max-width: 520px) {
+    .how-list { grid-template-columns: 1fr; }
+  }
+</style>
