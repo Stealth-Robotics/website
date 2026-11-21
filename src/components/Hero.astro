@@ -1,0 +1,277 @@
+---
+import { reel, reelFallbackId } from "@/data/reel"
+import { hero } from "@/data/site"
+import Nav from "@/components/Nav.astro"
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="stage" data-reel-stage aria-hidden="true">
+    {
+      reel.map((s, i) => (
+        <figure
+          class:list={["slide", { "is-active": i === 0 }]}
+          data-kind={s.kind}
+          data-hold={s.hold ?? 3600}
+          data-fallback={s.id === reelFallbackId ? "" : undefined}
+          aria-hidden={i === 0 ? "false" : "true"}
+          style={`${s.focus ? `--focus:${s.focus};` : ""}--shift:${s.shift ?? 0}`}
+        >
+          {s.kind === "video" ? (
+            <video
+              muted
+              playsinline
+              preload="none"
+              poster={s.poster}
+              data-src={s.src}
+            />
+          ) : (
+            <img
+              src={s.src}
+              alt=""
+              loading={i === 0 ? "eager" : "lazy"}
+              fetchpriority={i === 0 ? "high" : "auto"}
+              decoding="async"
+            />
+          )}
+        </figure>
+      ))
+    }
+    <div class="scrim" aria-hidden="true"></div>
+  </div>
+
+  <div class="hull">
+    <div class="hull-fill">
+      <div class="hull-copy">
+        <h1 id="hero-title" class="t-display" data-enter>
+          {hero.titleA} <span class="red">{hero.titleB}</span>
+        </h1>
+        <p class="t-lead lead" data-enter="2" set:html={hero.lead} />
+        <div class="actions" data-enter="3">
+          <a class="btn btn-red btn-nose" href="#join">
+            {hero.primary}
+            <span class="nose" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg></span>
+          </a>
+          <a class="btn btn-ghost btn-nose" href="#sponsor">
+            {hero.secondary}
+            <span class="nose" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Nav />
+
+  <a class="scroll-cue" href="#teams" aria-label="Scroll to the teams">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3.5l5 5 5-5M3 8.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2.1"></path></svg>
+  </a>
+
+</section>
+
+<style>
+  .hero {
+    --hull-w: min(50vw, 760px);
+    position: relative;
+    height: 100svh;
+    min-height: 680px;
+    max-height: 1200px;
+    background: var(--hull-0);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ── Reel stage ── */
+  .stage { position: absolute; inset: 0 0 0 calc(var(--hull-w) * 0.8); z-index: 0; background: var(--hull-0); }
+  .slide {
+    position: absolute; inset: 0; margin: 0;
+    opacity: 0;
+    transition: opacity 620ms var(--ease-out);
+  }
+  .slide.is-active { opacity: 1; z-index: 1; }
+  .slide video, .slide img {
+    width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 50%);
+  }
+  .slide[data-kind="photo"] img { transform-origin: var(--focus, 50% 50%); }
+  @media (prefers-reduced-motion: no-preference) {
+    .slide[data-kind="photo"].is-active img { animation: push var(--hold, 3600ms) linear both; }
+    .reel-paused .slide[data-kind="photo"].is-active img { animation-play-state: paused; }
+    @keyframes push { from { transform: scale(1.0); } to { transform: scale(1.07); } }
+  }
+  .scrim {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(11, 12, 14, 0.7) 0%, rgba(11, 12, 14, 0) 22%),
+      linear-gradient(0deg, rgba(11, 12, 14, 0.82) 0%, rgba(11, 12, 14, 0) 30%);
+  }
+
+  /* ── Hull panel: faceted, with a red edge along the cut ── */
+  .hull {
+    position: absolute; z-index: 3; inset: 0 auto 0 0; width: var(--hull-w);
+    background: var(--red);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  }
+  .hull-fill {
+    position: absolute; inset: 0 2px 0 0;
+    background: #0d0e11;
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+    display: flex; flex-direction: column;
+    padding: 104px 21% clamp(1.5rem, 4vh, 3rem) var(--gutter);
+  }
+  .hull-copy { position: relative; margin-block: auto; padding-block: 1rem; }
+  .hull-copy h1 { font-size: clamp(2.6rem, min(5.4vw, 8.4vh), 5.5rem); }
+  .lead { margin: 1.4rem 0 1.9rem; max-width: 26em; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; }
+
+
+
+  /* ── Desktop: reel fills the hero, copy sits on an angled dark gradient ── */
+  @media (min-width: 900px) {
+    .hero .stage { inset: 0; }
+    .hero .slide {
+      transform: translateX(calc(var(--shift, 0) * 100%));
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 14%);
+    }
+    .hero .scrim {
+      background:
+        linear-gradient(180deg, rgba(11, 12, 14, 0.65) 0%, rgba(11, 12, 14, 0) 20%),
+        linear-gradient(0deg, rgba(11, 12, 14, 0.8) 0%, rgba(11, 12, 14, 0) 28%),
+        linear-gradient(98deg, rgba(11, 12, 14, 0.94) 0%, rgba(11, 12, 14, 0.88) 30%, rgba(11, 12, 14, 0.5) 42%, rgba(11, 12, 14, 0) 56%);
+    }
+    .hero .hull { background: none; clip-path: none; width: min(46vw, 720px); }
+    .hero .hull-fill { inset: 0; clip-path: none; background: none; padding-right: 0; }
+    .hero .hull-copy h1 { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35); }
+    .hero .lead { color: var(--ink); text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6); }
+  }
+
+  /* ── Narrow screens: reel on top, hull below ── */
+  /* Scroll cue: a double chevron that bobs gently (still under reduced motion) and jumps to the teams. */
+  .scroll-cue {
+    position: absolute; z-index: 5; left: 50%; bottom: 1.25rem; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+    padding: 0.5rem 0.75rem; color: var(--ink-2); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    transition: color 200ms ease;
+  }
+  .scroll-cue svg { width: 1.9rem; height: 1.9rem; filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.55)); }
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-cue svg { animation: cue 2.2s var(--ease-in-out) infinite; }
+    @keyframes cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  }
+  @media (hover: hover) and (pointer: fine) { .scroll-cue:hover { color: var(--ink); } }
+
+  @media (max-width: 899px) {
+    .scroll-cue { display: none; }
+    .hero { height: auto; min-height: 0; max-height: none; display: flex; flex-direction: column; }
+    .stage { position: relative; inset: auto; height: auto; aspect-ratio: 1 / 1; max-height: 70svh; width: 100%; }
+    .hull { position: relative; width: 100%; clip-path: polygon(0 28px, 100% 0, 100% 100%, 0 100%); margin-top: -28px; }
+    .hull-fill { position: relative; inset: auto; margin-top: 2px; clip-path: polygon(0 28px, 100% 0, 100% 100%, 0 100%); padding: 3.25rem var(--gutter) 2rem; background: var(--hull-0); }
+    .hull-copy h1 { font-size: clamp(2.6rem, 11vw, 4rem); }
+    .actions .btn { flex: 1 1 100%; }
+  }
+</style>
+
+<script>
+  // Background reel: plays each clip/photo in order, loops, no controls.
+  // Pauses when the hero is off-screen or the tab is hidden; with reduced motion it holds the first frame.
+  // Falls back to a single still (the slide marked data-fallback, the flag photo) and stops downloading clips when
+  // Save-Data is on, a clip fails to load or decode, autoplay is blocked (e.g. iOS Low Power Mode), or a clip
+  // stalls for STALL_MS while it should be playing.
+  const root = document.querySelector<HTMLElement>(".hero")
+  if (root) {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>(".slide"))
+    const videos = Array.from(root.querySelectorAll<HTMLVideoElement>(".slide video"))
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true
+    const fallbackIndex = Math.max(0, slides.findIndex((s) => s.dataset.fallback !== undefined))
+    const STALL_MS = 6000
+    let index = 0
+    let inView = true
+    let timer = 0
+    let watchdog = 0
+    let fallen = false
+
+    const video = (i: number) => slides[i]?.querySelector("video") ?? null
+    const holdOf = (i: number) => Number(slides[i]?.dataset.hold ?? 3600)
+    const running = () => !fallen && !reduced && inView && document.visibilityState === "visible"
+    const arm = () => { clearTimeout(watchdog); watchdog = window.setTimeout(fallback, STALL_MS) }
+    const disarm = () => clearTimeout(watchdog)
+
+    function activate(next: number) {
+      slides.forEach((s, k) => {
+        s.classList.toggle("is-active", k === next)
+        s.style.setProperty("--hold", `${holdOf(k)}ms`)
+      })
+      index = next
+      const img = slides[next].querySelector("img")
+      if (img) { img.style.animation = "none"; void img.offsetWidth; img.style.animation = "" }
+    }
+
+    function fallback() {
+      if (fallen) return
+      fallen = true
+      clearTimeout(timer)
+      disarm()
+      // Stop every clip and cancel any download in flight; posters stay as the frame.
+      videos.forEach((v) => {
+        v.onended = null
+        v.pause()
+        if (v.getAttribute("src")) { v.removeAttribute("src"); v.load() }
+      })
+      root!.classList.remove("reel-paused")
+      activate(fallbackIndex)
+    }
+
+    function ensureSrc(i: number) {
+      const v = video(i)
+      if (!fallen && v && !v.getAttribute("src") && v.dataset.src) {
+        v.src = v.dataset.src
+        v.preload = "auto"
+      }
+    }
+
+    function schedule() {
+      if (fallen) return
+      clearTimeout(timer)
+      root!.classList.toggle("reel-paused", !running())
+      const v = video(index)
+      if (!running()) { v?.pause(); disarm(); return }
+      if (v) {
+        v.onended = () => show(index + 1)
+        if (v.paused) arm()
+        // AbortError just means a pause() interrupted this play() (scrolled away, slide changed); not a failure.
+        v.play().catch((e: DOMException) => { if (e?.name !== "AbortError") fallback() })
+      } else {
+        disarm()
+        timer = window.setTimeout(() => show(index + 1), holdOf(index))
+      }
+    }
+
+    function show(i: number) {
+      if (fallen) return
+      const n = slides.length
+      const next = ((i % n) + n) % n
+      const prev = video(index)
+      if (prev) { prev.pause(); prev.onended = null }
+      activate(next)
+      ensureSrc(next)
+      ensureSrc((next + 1) % n)
+      const v = video(next)
+      if (v) v.currentTime = 0
+      schedule()
+    }
+
+    videos.forEach((v) => {
+      v.addEventListener("error", fallback)
+      v.addEventListener("playing", () => { if (v === video(index)) disarm() })
+      v.addEventListener("waiting", () => { if (v === video(index) && running()) arm() })
+    })
+    document.addEventListener("visibilitychange", schedule)
+    new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting
+      schedule()
+    }, { threshold: 0.2 }).observe(root)
+
+    if (saveData) fallback()
+    else show(0)
+  }
+</script>

@@ -1,0 +1,71 @@
+---
+import { nav } from "@/data/site"
+---
+
+<header class="nav">
+  <a class="brand" href="/" aria-label="Stealth Robotics home">
+    <img src="/brand/stealth-lockup.png" alt="Stealth Robotics 4089" width="1048" height="512" />
+  </a>
+  <nav aria-label="Primary" class="links">
+    {nav.links.map((l) => <a class="link" href={l.href}>{l.label}</a>)}
+  </nav>
+  <a class="btn btn-red cta" href="#sponsor">{nav.cta}</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn>
+    <span class="sr-only">Menu</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h12" stroke="currentColor" stroke-width="2"></path></svg>
+  </button>
+  <div class="menu" id="menu" hidden data-menu>
+    <nav aria-label="Mobile">
+      {nav.links.map((l) => <a href={l.href} data-menu-link>{l.label}</a>)}
+    </nav>
+    <a class="btn btn-red" href="#sponsor" data-menu-link>{nav.cta}</a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: absolute; z-index: 10; top: 0; left: 0; right: 0;
+    height: 88px; display: flex; align-items: center; gap: 2rem;
+    padding: 0 var(--gutter);
+  }
+  .brand { flex: none; display: block; width: 116px; }
+  .brand img { width: 100%; height: auto; }
+  .links {
+    margin-left: auto; display: flex; gap: 2rem;
+    font-weight: 700; font-size: 0.875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
+  }
+  .links a { padding-block: 0.75rem 0.55rem; }
+  .cta { min-height: 2.75rem; padding: 0 1.1rem; font-size: 0.8125rem; }
+  .menu-btn {
+    display: none; margin-left: auto; width: 2.75rem; height: 2.75rem; border: 0; background: rgba(11, 12, 14, 0.7); color: var(--ink); cursor: pointer;
+    place-items: center;
+  }
+  .menu-btn svg { width: 1.4rem; height: 1.4rem; }
+  .menu {
+    position: fixed; inset: 0; z-index: 50; background: var(--hull-0);
+    display: flex; flex-direction: column; justify-content: center; gap: 2.5rem; padding: 6rem var(--gutter) 3rem;
+  }
+  .menu[hidden] { display: none; }
+  .menu nav { display: flex; flex-direction: column; gap: 0.25rem; }
+  .menu nav a { font-weight: 900; font-stretch: 64%; font-size: 3rem; line-height: 1.05; text-transform: uppercase; padding-block: 0.3rem; }
+  @media (max-width: 1023px) {
+    .links, .cta { display: none; }
+    .menu-btn { display: grid; position: relative; z-index: 60; }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>("[data-menu-btn]")
+  const menu = document.querySelector<HTMLElement>("[data-menu]")
+  if (btn && menu) {
+    const set = (open: boolean) => {
+      btn.setAttribute("aria-expanded", String(open))
+      menu.hidden = !open
+      document.documentElement.style.overflow = open ? "hidden" : ""
+    }
+    btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"))
+    menu.querySelectorAll("[data-menu-link]").forEach((a) => a.addEventListener("click", () => set(false)))
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false) })
+  }
+</script>

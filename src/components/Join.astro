@@ -1,0 +1,67 @@
+---
+import { join, contact } from "@/data/site"
+const mail = `mailto:${contact.email}?subject=${encodeURIComponent("Visiting the shop")}`
+---
+
+<section class="section join" id="join" aria-labelledby="join-title">
+  <div class="wrap grid">
+    <figure class="frame chamfer-lg shot frame-hover">
+      <img src={join.photo.src} alt={join.photo.alt} loading="lazy" decoding="async" />
+    </figure>
+    <div class="copy">
+      <h2 id="join-title" class="t-h2">{join.title}</h2>
+      <p class="t-lead">{join.intro}</p>
+      <dl class="plate">
+        {
+          join.plate.map((p) => (
+            <div>
+              <dt class="t-label">{p.label}</dt>
+              <dd class="t-stat">{p.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <ul class="reasons">
+        {
+          join.reasons.map((r) => (
+            <li>
+              <h3>{r.title}</h3>
+              <p>{r.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="btn btn-red" href={mail}>{join.primary}</a>
+    </div>
+    <ul class="strip">
+      {join.strip.map((p) => (
+        <li class="frame chamfer frame-hover"><img src={p.src} alt={p.alt} loading="lazy" decoding="async" /></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .join { background: var(--hull-0); }
+  .grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 4rem; align-items: center; }
+  .shot { aspect-ratio: 4 / 5; }
+  .shot img { object-position: 50% 50%; }
+  .copy { display: grid; gap: 1.5rem; justify-items: start; }
+  .plate { display: grid; grid-template-columns: repeat(3, auto); box-shadow: inset 0 0 0 1px var(--seam); margin: 0.5rem 0; }
+  .plate div { padding: 0.8rem 1.1rem; box-shadow: inset -1px 0 0 var(--seam); }
+  .plate dd { margin-top: 0.3rem; font-size: 1.45rem; }
+  .reasons { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; margin-bottom: 0.75rem; }
+  .reasons h3 { font-weight: 850; font-stretch: 76%; font-size: 1.2rem; text-transform: uppercase; }
+  .reasons p { margin-top: 0.4rem; color: var(--ink-3); font-size: var(--text-small); }
+  .strip { grid-column: 1 / -1; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; }
+  .strip li { height: clamp(220px, 24vw, 340px); }
+  @media (max-width: 899px) {
+    .strip { grid-template-columns: 1fr 1fr; }
+    .strip li { height: 180px; }
+    .strip li:first-child { grid-column: 1 / -1; height: 240px; }
+    .grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .shot { aspect-ratio: 4 / 3; }
+    .plate { grid-template-columns: 1fr 1fr; width: 100%; }
+    .reasons { grid-template-columns: 1fr; }
+  }
+</style>

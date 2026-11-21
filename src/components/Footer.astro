@@ -1,0 +1,80 @@
+---
+import { siFacebook, siGithub, siInstagram, siX, siYoutube } from "simple-icons"
+import { footer, contact } from "@/data/site"
+const social = [
+  { icon: siInstagram, href: contact.instagram },
+  { icon: siYoutube, href: contact.youtube },
+  { icon: siFacebook, href: contact.facebook },
+  { icon: siX, href: contact.x },
+  { icon: siGithub, href: contact.github },
+]
+---
+
+<footer class="footer">
+  <div class="facet" aria-hidden="true"><span class="facet-edge"></span></div>
+
+  <div class="wrap top">
+    <img class="logo" src="/brand/stealth-lockup.png" alt="Stealth Robotics 4089" loading="lazy" width="1048" height="512" />
+    <nav aria-label="Social">
+      <ul class="social">
+        {social.map((s) => (
+          <li>
+            <a class="btn btn-ghost tile" href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`Stealth Robotics on ${s.icon.title} (opens in a new tab)`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d={s.icon.path} fill="currentColor"></path></svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="wrap base">
+    <p class="fine">{footer.legal}</p>
+    <a class="btn btn-ghost to-top" href="#">
+      {footer.top}
+      <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 16V3M3.5 8.5 9 3l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg>
+    </a>
+  </div>
+</footer>
+
+<style>
+  /* The last plate of the hull: hull-0, entering on a chamfered step whose facet catches the one red light. */
+  .footer {
+    --facet: clamp(28px, 2rem + 1.5vw, 56px);
+    position: relative; background: var(--hull-0);
+    padding-block: clamp(3.5rem, 2.5rem + 3vw, 5rem) clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
+  }
+  .facet {
+    --x: clamp(40%, 30% + 10vw, 52%);
+    --e: 4px;
+    position: absolute; left: 0; right: 0; bottom: 100%; height: var(--facet);
+    background: var(--hull-0);
+    clip-path: polygon(0 0, calc(var(--x) + var(--e)) 0, calc(var(--x) + var(--facet) + var(--e)) 100%, 0 100%);
+    pointer-events: none;
+  }
+  .facet-edge {
+    position: absolute; inset: 0; background: var(--red);
+    clip-path: polygon(var(--x) 0, calc(var(--x) + var(--e)) 0, calc(var(--x) + var(--facet) + var(--e)) 100%, calc(var(--x) + var(--facet)) 100%);
+  }
+
+  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem 3rem; }
+  .logo { width: 124px; height: auto; }
+  /* Social: brand marks (simple-icons) in chamfered ghost tiles, the same plate and focus ring as every button. */
+  .social { display: flex; flex-wrap: wrap; gap: 0.625rem; }
+  .tile { --cut: 8px; width: 3rem; min-height: 3rem; padding: 0; color: var(--ink-2); transition: transform 160ms var(--ease-out), color 200ms ease; }
+  .tile svg { width: 1.125rem; height: 1.125rem; }
+  @media (hover: hover) and (pointer: fine) {
+    .tile:hover { color: var(--ink); }
+    .tile:hover svg { transform: none; }
+  }
+
+  .base {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    padding-top: 1.5rem; border-top: 1px solid var(--seam);
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  }
+  .fine { color: var(--ink-3); font-size: var(--text-small); }
+  .to-top { flex: none; min-height: 2.75rem; padding: 0 1.1rem; font-size: var(--text-label); }
+  @media (hover: hover) and (pointer: fine) { .to-top:hover svg { transform: translateY(-3px); } }
+
+</style>

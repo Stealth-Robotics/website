@@ -1,0 +1,48 @@
+---
+import { history } from "@/data/site"
+---
+
+<section class="section history" id="history" aria-labelledby="history-title">
+  <div class="wrap">
+    <header class="head">
+      <h2 id="history-title" class="t-h2">{history.title}</h2>
+      <p class="t-lead" set:html={history.intro} />
+    </header>
+    <ol class="ledger">
+      {
+        history.robots.map((r) => (
+          <li class:list={["row", { hot: r.hot }]}>
+            <span class="year t-stat">{r.year}</span>
+            <span class="name">{r.name}</span>
+            <span class="line" set:html={r.line} />
+          </li>
+        ))
+      }
+    </ol>
+    <p class="ftc t-label">{history.ftc}</p>
+  </div>
+</section>
+
+<style>
+  .history { background: var(--hull-0); }
+  .head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 2rem; align-items: end; margin-bottom: 3rem; }
+  .head .t-lead { justify-self: end; }
+  .ledger { columns: 2; column-gap: 4rem; border-top: 1px solid var(--seam); }
+  .row {
+    break-inside: avoid; display: grid; grid-template-columns: 5.5rem 9rem 1fr; gap: 1rem; align-items: baseline;
+    padding: 1rem 0; border-bottom: 1px solid var(--seam);
+  }
+  .year { font-size: 1.75rem; color: var(--ink-3); }
+  .name { font-weight: 850; font-stretch: 72%; font-size: 1.45rem; text-transform: uppercase; line-height: 1.1; }
+  .line { color: var(--ink-3); font-size: var(--text-small); }
+  .hot .year { color: var(--red-hot); }
+  .ftc { margin-top: 2rem; letter-spacing: 0.1em; line-height: 1.6; }
+  .hot .line { color: var(--ink-2); }
+  @media (max-width: 899px) {
+    .head { grid-template-columns: 1fr; }
+    .head .t-lead { justify-self: start; }
+    .ledger { columns: 1; }
+    .row { grid-template-columns: 4.5rem 1fr; }
+    .line { grid-column: 2; }
+  }
+</style>

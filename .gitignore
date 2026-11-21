@@ -20,3 +20,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+shots/
+.taste-skill/
+.impeccable/questions/
+.impeccable/mocks/
+
+# untouched reel masters (served copies are re-encoded into public/reel)
+media-originals/

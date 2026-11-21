@@ -1,0 +1,49 @@
+---
+import { outreach } from "@/data/site"
+---
+
+<section class="section outreach" id="outreach" aria-labelledby="outreach-title">
+  <div class="wrap grid">
+    <div class="copy">
+      <h2 id="outreach-title" class="t-h2">{outreach.title}</h2>
+      <p class="t-lead">{outreach.intro}</p>
+      <ul class="items">
+        {
+          outreach.items.map((it) => (
+            <li>
+              <h3 class="name" set:html={it.title} />
+              <p set:html={it.text} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="photos">
+      {
+        outreach.photos.map((p, i) => (
+          <figure class:list={["frame", "frame-hover", i === 0 ? "chamfer-lg big" : "chamfer small"]}>
+            <img src={p.src} alt={p.alt} loading="lazy" decoding="async" />
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .outreach { background: var(--hull-1); }
+  .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 4rem; align-items: start; }
+  .copy { display: grid; gap: 1.4rem; }
+  .items { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 2.25rem; margin-top: 1.5rem; }
+  .items li { border-top: 1px solid var(--seam); padding-top: 1rem; }
+  .name { font-weight: 850; font-stretch: 74%; font-size: 1.25rem; text-transform: uppercase; line-height: 1.1; margin-bottom: 0.5rem; }
+  .items p { color: var(--ink-3); font-size: var(--text-small); }
+  .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .big { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+  .small { aspect-ratio: 4 / 3; grid-column: 2; margin-top: -5rem; border: 6px solid var(--hull-1); }
+  @media (max-width: 899px) {
+    .grid { grid-template-columns: 1fr; }
+    .items { grid-template-columns: 1fr; }
+    .small { margin-top: -3rem; }
+  }
+</style>

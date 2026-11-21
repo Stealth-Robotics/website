@@ -1,130 +1,299 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
 
-@custom-variant dark (&:is(.dark *));
+/* ───────────────────────── Fonts (self-hosted) ───────────────────────── */
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-var-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Stealth Stencil";
+  src: url("/fonts/big-shoulders-stencil-display-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212;
+}
+@font-face {
+  font-family: "Stealth Stencil";
+  src: url("/fonts/big-shoulders-stencil-display-latin-ext.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+
+/* ───────────────────────── Tokens: Low-Observable / Cedarcrest red ───────────────────────── */
+:root {
+  /* Hull: graphite steps, faintly cool like radar-absorbent coating */
+  --hull-0: #0b0c0e;
+  --hull-1: #111316;
+  --hull-2: #181b1f;
+  --hull-3: #22262b;
+  --seam: #33383e;
+  --steel: #5d636a;
+
+  /* Ink */
+  --ink: #eceae4;
+  --ink-2: #bcbec1;
+  --ink-3: #8f949a;
+
+  /* Cedarcrest red, measured from Jeff's bumpers */
+  --red: #b01e2f;       /* fills, actions, the sponsor field */
+  --red-lit: #c72737;   /* hover on fills, large type on dark */
+  --red-hot: #e0485a;   /* small red text and edges on the hull */
+  --red-deep: #7d1422;  /* pressed, shadows inside the red field */
+
+  --focus: #f2c14e;     /* focus ring: the only yellow, the colour of the game pieces */
+
+  /* Type */
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-stencil: "Stealth Stencil", "Archivo", ui-sans-serif, sans-serif;
+
+  --text-display: clamp(3.25rem, 1.2rem + 6.2vw, 6rem);
+  --text-h2: clamp(2.5rem, 1.4rem + 3.6vw, 4.75rem);
+  --text-h3: clamp(1.5rem, 1.1rem + 1vw, 2rem);
+  --text-lead: clamp(1.125rem, 1rem + 0.35vw, 1.3125rem);
+  --text-body: 1.0625rem;
+  --text-small: 0.9375rem;
+  --text-label: 0.8125rem;
+
+  /* Space & shape */
+  --gutter: clamp(1.25rem, 0.4rem + 4vw, 4rem);
+  --section-y: clamp(5rem, 3rem + 7vw, 9rem);
+  --wrap: 1312px;
+  --chamfer: 12px;
+  --chamfer-lg: 28px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  color-scheme: dark;
+}
 
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: 'Geist Variable', sans-serif;
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+  --color-hull-0: var(--hull-0);
+  --color-hull-1: var(--hull-1);
+  --color-hull-2: var(--hull-2);
+  --color-hull-3: var(--hull-3);
+  --color-seam: var(--seam);
+  --color-steel: var(--steel);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-red: var(--red);
+  --color-red-lit: var(--red-lit);
+  --color-red-hot: var(--red-hot);
+  --color-red-deep: var(--red-deep);
+  --font-sans: var(--font-sans);
+  --font-stencil: var(--font-stencil);
 }
 
-:root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+/* ───────────────────────── Base ───────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  background: var(--hull-1);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--steel) var(--hull-0);
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: 1.55;
+  font-stretch: 96%;
+  font-variant-numeric: tabular-nums;
+  overflow-x: clip;
+}
+::selection { background: var(--red); color: #fff; }
+img, video, canvas, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+h1, h2, h3, p, ul, ol, figure, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+.skip-link {
+  position: fixed; left: var(--gutter); top: 0.75rem; z-index: 100;
+  transform: translateY(-160%);
+  background: var(--ink); color: var(--hull-0);
+  padding: 0.75rem 1rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; font-size: var(--text-small);
+}
+.skip-link:focus-visible { transform: none; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+/* ───────────────────────── Type roles ───────────────────────── */
+.t-display {
+  font-size: var(--text-display);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.t-h2 {
+  font-size: var(--text-h2);
+  font-weight: 880;
+  font-stretch: 64%;
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.t-h3 {
+  font-size: var(--text-h3);
+  font-weight: 800;
+  font-stretch: 74%;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.t-lead { font-size: var(--text-lead); line-height: 1.5; font-stretch: 92%; color: var(--ink-2); max-width: 34em; }
+.t-body { color: var(--ink-2); max-width: 62ch; }
+.t-label {
+  font-family: var(--font-stencil);
+  font-size: var(--text-label);
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.t-stat {
+  font-family: var(--font-stencil);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.red { color: var(--red-hot); }
+
+/* ───────────────────────── Layout ───────────────────────── */
+.wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
+.section { position: relative; padding-block: var(--section-y); }
+
+/* ───────────────────────── Buttons (chamfered) ───────────────────────── */
+/* The anchor itself is never clipped (so focus can draw outside it): the chamfered plate is ::before,
+   the chamfered ball-yellow focus ring is ::after. Ring polygons: outer cut c, inner offset t → inner cut c + 0.414t. */
+.btn {
+  --cut: 10px;
+  --fill: transparent;
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+  min-height: 3.25rem; padding: 0 1.6rem;
+  font-weight: 800; font-stretch: 100%; font-size: 0.9375rem; letter-spacing: 0.06em; text-transform: uppercase;
+  transition: transform 160ms var(--ease-out), color 200ms ease;
+  cursor: pointer; border: 0; background: none; white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn::before, .btn::after { content: ""; position: absolute; pointer-events: none; }
+.btn::before {
+  inset: 0; z-index: -1; background: var(--fill);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  transition: background-color 200ms ease;
+}
+.btn::after {
+  --c: calc(var(--cut) + 2.4px);
+  inset: -4px; background: var(--focus); opacity: 0;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c),
+    2px calc(var(--c) + 0.8px), 2px calc(100% - 2px), calc(100% - var(--c) - 0.8px) calc(100% - 2px), calc(100% - 2px) calc(100% - var(--c) - 0.8px), calc(100% - 2px) 2px, calc(var(--c) + 0.8px) 2px, 2px calc(var(--c) + 0.8px));
+}
+.btn:focus-visible { outline: none; }
+.btn:focus-visible::after { opacity: 1; }
+.btn:active { transform: scale(0.97); }
+.btn svg { width: 1rem; height: 1rem; transition: transform 220ms var(--ease-out); }
+.btn-red { --fill: var(--red); color: #fff; }
+.btn-ghost { --edge: var(--steel); --w: 1.5px; color: var(--ink); }
+.btn-ghost::before {
+  --d: calc(var(--w) * 0.414);
+  background: var(--edge);
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut),
+    var(--w) calc(var(--cut) + var(--d)), var(--w) calc(100% - var(--w)), calc(100% - var(--cut) - var(--d)) calc(100% - var(--w)), calc(100% - var(--w)) calc(100% - var(--cut) - var(--d)), calc(100% - var(--w)) var(--w), calc(var(--cut) + var(--d)) var(--w), var(--w) calc(var(--cut) + var(--d)));
+}
+.btn-paper { --fill: var(--ink); color: var(--hull-0); }
+.btn-ink { --fill: var(--hull-0); color: var(--ink); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-red:hover { --fill: var(--red-lit); }
+  .btn-ghost:hover { --edge: var(--ink); }
+  .btn-paper:hover { --fill: #fff; }
+  .btn-ink:hover { --fill: var(--hull-2); }
+  .btn:hover svg { transform: translateX(3px); }
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-    }
-  body {
-    @apply bg-background text-foreground;
-    }
-  html {
-    @apply font-sans;
-    }
+/* Large action with a nose: label plate + a separate arrow cell, like a panel with a part fitted to it.
+   On hover the arrow passes through the cell (out right, back in from the left). */
+.btn-nose {
+  --cut: 12px;
+  --nose: 3.5rem;
+  justify-content: space-between; gap: 0;
+  min-height: var(--nose); padding: 0 0 0 1.5rem;
+  font-size: 1rem;
+}
+.btn-nose > .nose {
+  align-self: stretch; flex: none; width: var(--nose); margin-left: 1.5rem;
+  display: grid; place-items: center;
+}
+.btn-nose > .nose svg { width: 1.125rem; height: 1.125rem; transition: none; }
+.btn-red.btn-nose > .nose {
+  background: rgba(0, 0, 0, 0.18);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%);
+}
+/* The nosed ghost sits on footage: one unbroken 2px light-steel edge over a flat dark plate, so it holds on
+   bright frames. ::before is the plate (inset 1px so its antialiased rim never fringes past the edge), ::after
+   is the edge ring, which becomes the ball-yellow ring 4px out on focus. No seam before the nose. */
+.btn-ghost.btn-nose { --edge: var(--ink-3); --w: 2px; }
+.btn-ghost.btn-nose::before {
+  --c: calc(var(--cut) - 0.59px);
+  inset: 1px; background: rgba(11, 12, 14, 0.72);
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+}
+.btn-ghost.btn-nose::after { --c: var(--cut); inset: 0; background: var(--edge); opacity: 1; transition: background-color 200ms ease; }
+.btn-ghost.btn-nose:focus-visible::after { --c: calc(var(--cut) + 2.4px); inset: -4px; background: var(--focus); }
+.btn-ghost.btn-nose > .nose { margin-left: 0.5rem; }
+@media (hover: hover) and (pointer: fine) {
+  .btn-nose:hover svg { transform: none; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .btn-nose:hover > .nose svg { animation: nose-pass 440ms both; }
+  @keyframes nose-pass {
+    0% { transform: none; opacity: 1; animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+    42% { transform: translateX(12px); opacity: 0; }
+    43% { transform: translateX(-12px); opacity: 0; animation-timing-function: var(--ease-out); }
+    100% { transform: none; opacity: 1; }
+  }
+}
+
+/* Links that draw their underline */
+.link {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat;
+  transition: background-size 240ms var(--ease-out);
+  padding-bottom: 2px;
+}
+@media (hover: hover) and (pointer: fine) { .link:hover { background-size: 100% 1.5px; } }
+
+/* ───────────────────────── Plates & frames ───────────────────────── */
+.chamfer { clip-path: polygon(var(--chamfer) 0, 100% 0, 100% calc(100% - var(--chamfer)), calc(100% - var(--chamfer)) 100%, 0 100%, 0 var(--chamfer)); }
+.chamfer-lg { clip-path: polygon(var(--chamfer-lg) 0, 100% 0, 100% calc(100% - var(--chamfer-lg)), calc(100% - var(--chamfer-lg)) 100%, 0 100%, 0 var(--chamfer-lg)); }
+
+.frame { position: relative; overflow: hidden; background: var(--hull-2); }
+.frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { a.frame:hover img, .frame-hover:hover img { transform: scale(1.025); } }
+
+/* Hero entrance: one authored moment, visible by default */
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter] { animation: enter 900ms var(--ease-out) both; }
+  [data-enter="2"] { animation-delay: 90ms; }
+  [data-enter="3"] { animation-delay: 170ms; }
+  [data-enter="4"] { animation-delay: 260ms; }
+  @keyframes enter { from { opacity: 0; transform: translateY(14px); filter: blur(4px); } }
 }
