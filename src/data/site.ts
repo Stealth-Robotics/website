@@ -21,6 +21,7 @@ export const meta = {
 
 export const nav = {
   links: [
+    { label: "About", href: "#about" },
     { label: "Teams", href: "#teams" },
   ],
   cta: "Sponsor 2027",
@@ -32,6 +33,19 @@ export const hero = {
   lead: `Founded in 2012, Stealth Robotics is the ${F} robotics program at Cedarcrest High School in Duvall, Washington. Students gain real engineering experience building robots from the ground up and competing with teams from around the world.`,
   primary: "Join the team",
   secondary: "Support Stealth",
+}
+
+export const about = {
+  eyebrow: "Who are we?",
+  titleA: "Stealth Robotics",
+  titleB: "4089",
+  body: [
+    `Stealth Robotics is the robotics team and club at Cedarcrest High School in Duvall, Washington. We started in 2012 and have been growing ever since.`,
+    `We're student members and adult mentors who want to spread STEM through our school community and beyond. We do it by competing in multiple ${F} programs, and by taking our robots out to demos and outreach events in our local community.`,
+  ],
+  cta: "Meet the teams",
+  photo: "/photos/team-glacier-peak-2024.jpg",
+  photoAlt: "About thirty Stealth Robotics students and mentors in black team shirts posing on the field at the 2024 Glacier Peak event",
 }
 
 export const teams = {
