@@ -29,7 +29,9 @@ One program, two FIRST competitions under one roof: a full FRC team plus a bench
 - Season rhythm: kickoff in January (FRC) and September (FTC), build season, district events (e.g. Glacier Peak, Auburn, Bear Creek), District Championship, World Championship in Houston.
 - Robots are designed in Onshape; parts follow the team's own numbering (e.g. `26-3-008 Brainpan`, `26-3-032 washing machine bottom`).
 - Outreach: FIRST LEGO League / community demo events, school STEM nights.
-- Sponsorship is handled by the **Stealth Robotics Booster Club**, a 501(c)(3) ("CHS FIRST Robotics Stealth 4089 Booster Club"). Contact: stealthrobotics@gmail.com. Site: stealthrobotics.org.
+- Sponsorship is handled by the **Stealth Robotics Booster Club**, a 501(c)(3) ("CHS FIRST Robotics Stealth 4089 Booster Club"), run by parents, mentors and volunteers. Team contact: stealthrobotics@gmail.com. Booster club (all giving questions on the site): stealthboosters@gmail.com. Site: stealthrobotics.org.
+- Giving (from the old site's Donate and Booster Club pages): online via GiveLively, secure.givelively.org/donate/washington-first-robotics/frc-4089 (one-time or monthly); checks to the booster club at PO Box 1056, Duvall, WA 98019; matching through the booster club, or through FIRST Washington (EIN 45-2443839, then email accounting@firstwa.org to designate FRC 4089); stock and donor-advised funds through FIRST Washington's finance team. Sponsors are recognized on the website, social media, robot, signage and uniforms by support level; the sponsor packet PDF still needs a public home.
+- Tax wording must stay the booster club's own: contributions "may be tax deductible. Please consult your tax professional to determine deductibility." Never state gifts are tax-deductible outright.
 
 ## Capabilities and Constraints
 
@@ -61,8 +63,19 @@ Verified history (FIRST frc-events, FTCScout, archived team site; research 2026-
 - stealthrobotics.org currently does not resolve (domain issue); the old WordPress site is only on the Wayback Machine.
 
 - Stack: existing Astro 7 + React 19 + Tailwind 4 + shadcn/ui (base-nova) project. Static output.
-- Undecided: donation processor/link, sponsor tiers and amounts, join/interest form destination, meeting schedule. Do not invent these; leave clearly marked slots.
+- Decided: donations go through GiveLively (above); the team meets Mondays and Wednesdays at 3 p.m. in the Cedarcrest shop.
+- Undecided: sponsor tiers and amounts, join/interest form destination. Do not invent these; leave clearly marked slots.
 - Do not publish the booster club EIN on the page.
+- The site does not state a fundraising goal or season on the donate page, and does not mention OSPI funding (user, 2026-11-21).
+
+## Site Structure
+
+- Menu: Home, About, Robots, Sponsors, and a red "Donate" action.
+- `/` Home: hero reel → Who are we (Stealth Robotics 4089) → Meet Jeff → What is FIRST (FLL, FTC, FRC) → The Stealth family (teams) → footer.
+- `/about`: team story (founded 2012 by head mentor Kevin Ross; 400+ students, from the old About Us page) → How Stealth works → robots named for mentors → outreach → join (meets Mon/Wed 3 p.m.).
+- `/robots`: this season's robot (Jeff) → past FRC robots 2016–2025 (each named after a mentor) → 2012–2015 → FTC teams. Every season has its game logo, a summary, FIRST's game animation, and a link to The Blue Alliance.
+- `/sponsors`: sponsor showcase (logo wall, 2025–26 season; sponsors back every team, FRC and FTC, for a full season).
+- `/donate`: why give → what a gift builds → how to give (online, check, matching, stock/DAF, sponsor, mentor).
 
 ## Brand Commitments
 
@@ -84,6 +97,9 @@ Verified history (FIRST frc-events, FTCScout, archived team site; research 2026-
 - 2026 sponsor list as credited by the team (end card of the "Robot Reveal: Jeff" video, youtube.com/watch?v=YRN_NeaJfCo): Aldermoss, Station 68, MOD Pizza, Gene Haas Foundation, Sani-Tech, The Grange, Google, Boeing, Costco, FIRST Washington, Microsoft, Novelty Hill IP, Issaquah Lumber, Riverview School District, Cedarcrest High School, Cedarcrest PTSA.
 - Official match video (FIRST uploads, user-approved for use): Glacier Peak Final Tiebreaker (RED won 299–131) youtube.com/watch?v=BhJFbdHT4lk; Milstein Playoff Match 10 (won 578–449) youtube.com/watch?v=Dv7LZbRTz1I; full list of 2026 match videos via TBA team/4089/2026.
 - Best hero footage: `~/Downloads/DCMP_extracted/DCMP/P1070174.MP4` (4K follow-cam of Jeff at DCMP; ~26–36 s wide in the ball field with crowd, ~104–113 s close on the full hopper).
+- Old team site (WordPress, 984846.us30.myftpupload.com): About Us, Past Robots (features, events, game descriptions and animation links per season), Donate, Booster Club, Sponsors, Resources, Calendar, News. Event dates on /robots were checked against The Blue Alliance; the old site's 2012 Championship location (Houston) was wrong, it was St. Louis.
+- Sponsor logos: `public/sponsors/`, from each sponsor's site or Wikimedia; FIRST Washington and Riverview from the old site. Station 68 is unidentified (name plate only). Game logos: `public/games/` (old site; 2015 from Wikipedia). Robot photos: `public/robots/` (old site).
+- Open questions: Mishap 7760 status; Station 68 identity; Ben's "4-Degree Of Scoring Mechanism" wording; whether "400+ students" is current; a larger Riverview logo.
 - Absent, must not be fabricated: testimonials, student counts, alumni outcomes, award list (pending verification), sponsor tier pricing.
 
 ## Product Principles

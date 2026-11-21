@@ -117,7 +117,7 @@ Restrained-plus-one: an achromatic hull and one committed red that owns a whole 
 
 ### Named Rules
 **The One Light Rule.** Red is the only hue the system owns. Every other colour on the page belongs to content (footage, photos, team logos), never to UI.
-**The Red Field Rule.** One section per page may go fully red (the decisive beat: sponsorship). Never two.
+**The Red Field Rule.** One section per page may go fully red (the decisive beat: the page's main ask). Never two. Home: Get in touch; /donate: How to give; /sponsors: Join them; /robots: Help build the next one.
 **Ball-yellow focus.** The focus ring is `#f2c14e`, the game-piece yellow, so keyboard focus is unmistakable on both hull and red.
 
 ## Typography
@@ -138,7 +138,9 @@ Restrained-plus-one: an achromatic hull and one committed red that owns a whole 
 **Stencil is for data.** If it is a sentence, it is Archivo.
 
 ## Layout
-Max content width 1312px with a fluid gutter (20–64px). Sections are one to two screens tall, separated by hull-step changes rather than rules. Headers split 7/5: heading left, lead right-aligned to the far column. Lists are ledgers (rows with 1px seams), not card grids. Phones: one column, full-width actions, the hero's hull panel drops below the reel.
+Max content width 1312px with a fluid gutter (20–64px). Sections are one to two screens tall, separated by hull-step changes rather than rules. Headers split 7/5: heading left, lead right-aligned to the far column, except where a long intro would leave a hole above a short heading (What is FIRST): there heading and intro stack. Inner pages (/about, /robots, /sponsors, /donate) open on a hull-0 intro under the nav: display title with a red second half, lead, optional data plate, chamfered photo right.
+
+**Ground order.** Sections alternate hull-0 / hull-1. The section above the footer must be hull-1, because the footer steps down to hull-0 on its red-edged facet. Home: About 0 → Jeff 1 → FIRST 0 → Teams 1. Lists are ledgers (rows with 1px seams), not card grids. Phones: one column, full-width actions, the hero's hull panel drops below the reel.
 
 ## Elevation & Depth
 No shadows. Depth comes from the hull steps, chamfered clipping, and the angled dark gradient the hero copy sits on. The only glow is the red floor light under the 3D robot.
@@ -160,13 +162,19 @@ Chamfered, uppercase Archivo 800, tracking 0.06em, min-height 52px (44px for com
 No cards. Teams use a chamfered photo frame with a **decal**: a hull-0 chamfered plate holding the team's own logo, overlapping the photo's bottom edge. Photos zoom 1.025 on hover inside their frame.
 
 ### Navigation
-Transparent over the hero, uppercase Archivo 700 links with a drawn underline on hover; a compact red "Sponsor 2027" action. Under 1024px a full-screen hull-0 menu with 3rem condensed links.
+Transparent over the hero, uppercase Archivo 700 links (Home, About, Robots, Sponsors) with a drawn underline on hover; the current page keeps its underline. A compact red "Donate" action. Under 1024px a full-screen hull-0 menu with 3rem condensed links.
+
+### Sponsor wall
+White chamfered plates, 4-up (2-up on phones), so every logo shows in its own colours, like the robot's sponsor board. Compact badges get a larger box; logos that are only a mark get the name set beside or under it in the sponsor's own style; a sponsor with no logo yet gets a condensed-caps name plate. Every plate has a stencil caption and links to the sponsor's site.
+
+### Robot ledger
+/robots lists robots newest first: photo, game logo on a small white plate, year and game in stencil, name, a season summary, feature tags (seam-outlined), events with dates and results, and links to the game animation and The Blue Alliance (external links carry a diagonal arrow). This season's robot is featured above it on a white studio plate.
 
 ### Footer
 The last hull plate: hull-0, entering on a chamfered step whose 45° facet carries a 4px Cedarcrest-red edge (the hull's cut edge). Lean: lockup on the left, social brand marks (simple-icons, 18px) in 48px chamfered ghost tiles on the right; then a seam, the © line and a compact ghost "Back to top". Each tile is labelled "Stealth Robotics on <network>". No contact block, credits or decorative numerals.
 
 ### Data plate (signature)
-A stencilled grid of label/value cells with 1px seam dividers, used for verified facts (hero, join). The hot cell uses red-hot.
+A stencilled grid of label/value cells with 1px seam dividers, used for verified facts (join, About, Robots, Meet Jeff). The hot cell uses red-hot. A single stencil metadata line above a feature title ("This season's robot · 2026 · REBUILT") counts as data, not an eyebrow.
 
 ### Season reel (signature)
 Full-bleed sequence of short clips and photos (cropped and recentred on the robot), with a "now playing" title + stencil meta, chamfered prev/pause/next controls, and a story-style segmented breadcrumb: one segment per clip, labelled tooltips, click to jump, arrow keys, pauses off-screen and when the tab is hidden. Reduced motion: starts paused, no push-in.
