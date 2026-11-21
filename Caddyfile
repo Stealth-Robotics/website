@@ -1,0 +1,24 @@
+# Serves the built site. Railway sets $PORT.
+{
+	admin off
+}
+
+:{$PORT:8080} {
+	root * /srv
+	encode zstd gzip
+
+	# Clean URLs: /robots serves /robots/index.html (Astro's directory output).
+	try_files {path} {path}/index.html {path}.html
+	file_server
+
+	# Astro's hashed assets never change; everything else revalidates.
+	header /_astro/* Cache-Control "public, max-age=31536000, immutable"
+
+	handle_errors {
+		@notfound expression {err.status_code} == 404
+		handle @notfound {
+			rewrite * /404.html
+			file_server
+		}
+	}
+}
