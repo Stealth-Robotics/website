@@ -22,6 +22,7 @@ export const meta = {
 export const nav = {
   links: [
     { label: "About", href: "#about" },
+    { label: F, href: "#first" },
     { label: "Teams", href: "#teams" },
   ],
   cta: "Sponsor 2027",
@@ -46,6 +47,50 @@ export const about = {
   cta: "Meet the teams",
   photo: "/photos/team-glacier-peak-2024.jpg",
   photoAlt: "About thirty Stealth Robotics students and mentors in black team shirts posing on the field at the 2024 Glacier Peak event",
+}
+
+// Program facts (founding years, age ranges) are FIRST's own, from firstinspires.org.
+export const first = {
+  title: `What is ${F}?`,
+  lead: `${F} is a global nonprofit that runs robotics programs for students from age 4 through high school, taking them from LEGO robots to industrial-size machines. Every season brings a new game, and a culture where rival teams help each other out. Stealth fields teams in two of its programs: FTC and FRC.`,
+  home: { label: "firstinspires.org", href: "https://www.firstinspires.org/" },
+  programs: [
+    {
+      short: "FLL",
+      name: `${F} LEGO League`,
+      meta: "Ages 4–16 · Since 1998",
+      text: "Kids start with LEGO and build up to designing and coding their own robots for a themed challenge, learning teamwork and problem solving along the way.",
+      href: "https://www.firstinspires.org/programs/fll/",
+      photo: "/photos/first-fll-table.jpg",
+      photoAlt: "Students leaning over a FIRST LEGO League table, adjusting a LEGO robot while mentors watch",
+      w: 1024,
+      h: 768,
+    },
+    {
+      short: "FTC",
+      name: `${F} Tech Challenge`,
+      meta: "Grades 7–12 · Since 2005",
+      text: "Teams design, build and code robots from a reusable kit to play a new game each season, working with the same tools and methods engineers use.",
+      ours: "Our teams: 7759 Autonomous Prime, 22152 Smelt",
+      href: "https://www.firstinspires.org/programs/ftc/",
+      photo: "/photos/first-ftc-22152-pit.jpg",
+      photoAlt: "Smelt students in safety glasses working on FTC robot 22152 and a laptop at a pit table",
+      w: 1160,
+      h: 786,
+    },
+    {
+      short: "FRC",
+      name: `${F} Robotics Competition`,
+      meta: "Grades 9–12 · Since 1992",
+      text: "The biggest of the three. Each January, teams get a few weeks to design and build an industrial-size robot, then compete in alliances at events around the world.",
+      ours: "Our team: 4089 Stealth Robotics",
+      href: "https://www.firstinspires.org/programs/frc/",
+      photo: "/photos/first-frc-4089-pit.jpg",
+      photoAlt: "Three Stealth students working on the 4089 FRC robot in blue bumpers at an event",
+      w: 1200,
+      h: 893,
+    },
+  ],
 }
 
 export const teams = {

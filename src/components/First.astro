@@ -1,0 +1,75 @@
+---
+import { first } from "@/data/site"
+
+const arrow = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"></path></svg>`
+---
+
+<section class="section first" id="first" aria-labelledby="first-title">
+  <div class="wrap">
+    <header class="head">
+      <h2 id="first-title" class="t-h2" set:html={first.title} />
+      <div class="intro">
+        <p class="t-lead" set:html={first.lead} />
+        <a class="out link" href={first.home.href} target="_blank" rel="noopener">
+          {first.home.label}<span class="sr-only"> (opens in a new tab)</span><Fragment set:html={arrow} />
+        </a>
+      </div>
+    </header>
+
+    <ol class="ledger">
+      {
+        first.programs.map((p) => (
+          <li class="row">
+            <figure class="frame chamfer shot frame-hover">
+              <img src={p.photo} alt={p.photoAlt} width={p.w} height={p.h} loading="lazy" decoding="async" />
+            </figure>
+            <div class="name">
+              <p class="short t-stat">{p.short}</p>
+              <h3 class="t-h3" set:html={p.name} />
+              <p class="meta t-label">{p.meta}</p>
+            </div>
+            <div class="body">
+              <p class="text">{p.text}</p>
+              {"ours" in p && <p class="ours">{p.ours}</p>}
+              <a class="out link" href={p.href} target="_blank" rel="noopener">
+                <span>More on {p.short}</span><span class="sr-only"> at firstinspires.org (opens in a new tab)</span><Fragment set:html={arrow} />
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .first { background: var(--hull-0); }
+  /* Heading and intro stack as one block: a long intro beside a one-line heading left a hole above the title. */
+  .head { margin-bottom: 3rem; }
+  .intro { margin-top: 1.5rem; max-width: 40em; }
+
+  .out {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.1rem;
+    font-weight: 750; font-size: 0.875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink);
+  }
+  .out :global(svg) { width: 0.9rem; height: 0.9rem; color: var(--red-hot); transition: transform 220ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) { .out:hover :global(svg) { transform: translate(2px, -2px); } }
+
+  .ledger { border-top: 1px solid var(--seam); }
+  .row {
+    display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 5fr); gap: 2.5rem; align-items: start;
+    padding: 2rem 0; border-bottom: 1px solid var(--seam);
+  }
+  .shot { aspect-ratio: 4 / 3; }
+  .short { font-size: 1.05rem; color: var(--red-hot); letter-spacing: 0.08em; }
+  .name h3 { margin-top: 0.4rem; }
+  /* Italic FIRST in a condensed heading overhangs the space after it; give it back. */
+  .name h3 :global(em) { margin-right: 0.14em; }
+  .meta { margin-top: 0.75rem; }
+  .text { color: var(--ink-2); max-width: 46ch; }
+  .ours { margin-top: 0.9rem; font-size: var(--text-small); color: var(--ink-3); }
+
+  @media (max-width: 899px) {
+    .row { grid-template-columns: 1fr; gap: 1.25rem; padding: 2rem 0 2.5rem; }
+  }
+</style>
