@@ -27,7 +27,10 @@ const shareImage = new URL(image, Astro.site)
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0b0c0e" />
+    <!-- The robot head from the team logo on Cedarcrest red. PNGs cover browsers without SVG icons and iOS home screens. -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href="/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/big-shoulders-stencil-display-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="canonical" href={canonical} />
