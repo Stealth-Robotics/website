@@ -300,8 +300,8 @@ export const donatePage = {
       },
       {
         title: "Double it with a matching gift",
-        // PRODUCT.md: never publish the booster club's EIN. FIRST Washington's is needed for the fallback route.
-        text: `Find the CHS ${F} Robotics Stealth 4089 Booster Club in your employer's matching system. Not listed? Give to ${F} Washington (EIN 45-2443839) instead, then email accounting@firstwa.org to designate it for Team 4089.`,
+        // The booster club's EIN is published at the user's request (2026-11-21), as on the old site.
+        text: `Find the CHS ${F} Robotics Stealth 4089 Booster Club (EIN 82-4241248) in your employer's matching system. Not listed? Give to ${F} Washington (EIN 45-2443839) instead, then email accounting@firstwa.org to designate it for Team 4089.`,
       },
       {
         title: "Stock and donor-advised funds",

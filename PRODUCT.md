@@ -65,7 +65,7 @@ Verified history (FIRST frc-events, FTCScout, archived team site; research 2026-
 - Stack: existing Astro 7 + React 19 + Tailwind 4 + shadcn/ui (base-nova) project. Static output.
 - Decided: donations go through GiveLively (above); the team meets Mondays and Wednesdays at 3 p.m. in the Cedarcrest shop.
 - Undecided: sponsor tiers and amounts, join/interest form destination. Do not invent these; leave clearly marked slots.
-- Do not publish the booster club EIN on the page.
+- The booster club EIN (82-4241248) is published on /donate for matching gifts (user, 2026-11-21; it was on the old site too).
 - The site does not state a fundraising goal or season on the donate page, and does not mention OSPI funding (user, 2026-11-21).
 
 ## Site Structure
