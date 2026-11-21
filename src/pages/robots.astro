@@ -1,0 +1,314 @@
+---
+import Layout from "@/layouts/main.astro"
+import Nav from "@/components/Nav.astro"
+import Footer from "@/components/Footer.astro"
+import { robotsPage as page, current, past, early, ftc, tba } from "@/data/robots"
+
+// External links (game animation, The Blue Alliance) get a diagonal arrow.
+const ext = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"></path></svg>`
+const arrow = `<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg>`
+---
+
+<Layout title={page.meta.title} description={page.meta.description} image="/robots/2026-jeff.jpg">
+  <div class="top">
+    <Nav />
+  </div>
+
+  <main id="main">
+    <section class="intro" aria-labelledby="robots-title">
+      <div class="wrap grid">
+        <div class="copy">
+          <h1 id="robots-title" class="t-display" data-enter>
+            {page.titleA} <span class="red">{page.titleB}</span>
+          </h1>
+          <p class="t-lead" data-enter="2" set:html={page.lead} />
+          <dl class="plate" data-enter="3">
+            {
+              page.plate.map((p) => (
+                <div>
+                  <dt class="t-label" set:html={p.label} />
+                  <dd class="t-stat">{p.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <figure class="frame chamfer-lg shot" data-enter="2">
+          <img src={page.photo} alt={page.photoAlt} loading="eager" fetchpriority="high" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- This season's robot: the one feature on the page. -->
+    <section class="section current" id={current.id} aria-labelledby="current-title">
+      <div class="wrap current-grid">
+        <figure class="frame chamfer-lg studio">
+          <img src={current.photo} alt={current.photoAlt} loading="lazy" decoding="async" />
+        </figure>
+        <div class="current-copy">
+          <span class="glogo glogo-lg"><img src={current.logo} alt="" loading="lazy" decoding="async" /></span>
+          <p class="t-label kicker">{page.currentLabel} · {current.year} · <span set:html={current.game} /></p>
+          <h2 id="current-title" class="t-h2">{current.name}</h2>
+          <p class="t-lead season-lead" set:html={current.season} />
+          <ul class="features">{current.features.map((f) => <li>{f}</li>)}</ul>
+          <dl class="results">
+            {
+              current.results.map((r) => (
+                <div>
+                  <dt><span set:html={r.event} /><span class="date t-label">{r.date}</span></dt>
+                  <dd>{r.result}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="links">
+            <a class="out link" href={current.animation} target="_blank" rel="noopener">Game animation<span class="sr-only"> for {current.year} (opens in a new tab)</span><Fragment set:html={ext} /></a>
+            <a class="out link" href={tba(current.year)} target="_blank" rel="noopener">{current.year} results on The Blue Alliance<span class="sr-only"> (opens in a new tab)</span><Fragment set:html={ext} /></a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section past" aria-labelledby="past-title">
+      <div class="wrap">
+        <h2 id="past-title" class="t-h2">{page.pastTitle}</h2>
+        <ol class="ledger">
+          {
+            past.map((r) => (
+              <li class="row" id={r.id}>
+                <figure class="frame chamfer shot-sm frame-hover">
+                  <img src={r.photo} alt={r.photoAlt} loading="lazy" decoding="async" style={r.focus ? `object-position:${r.focus}` : undefined} />
+                </figure>
+                <div class="main">
+                  <div class="head">
+                    <span class="glogo"><img src={r.logo} alt="" loading="lazy" decoding="async" /></span>
+                    <div>
+                      <p class="name-line">
+                        <span class:list={["year t-stat", { hot: r.hot }]}>{r.year}</span>
+                        <span class="game t-label" set:html={r.game} />
+                      </p>
+                      <h3 class="t-h3">{r.name}</h3>
+                    </div>
+                  </div>
+                  <p class="season" set:html={r.season} />
+                  <ul class="feat">{r.features.map((f) => <li>{f}</li>)}</ul>
+                  <p class="links">
+                    <a class="out link" href={r.animation} target="_blank" rel="noopener">Game animation<span class="sr-only"> for {r.year} (opens in a new tab)</span><Fragment set:html={ext} /></a>
+                    <a class="out link" href={tba(r.year)} target="_blank" rel="noopener">Results on The Blue Alliance<span class="sr-only"> for {r.year} (opens in a new tab)</span><Fragment set:html={ext} /></a>
+                  </p>
+                </div>
+                <dl class="res">
+                  {
+                    r.results.map((x) => (
+                      <div>
+                        <dt><span set:html={x.event} /> <span class="date t-label">{x.date}</span></dt>
+                        <dd>{x.result}</dd>
+                      </div>
+                    ))
+                  }
+                </dl>
+              </li>
+            ))
+          }
+        </ol>
+
+        <h3 class="t-label early-title">{page.earlyTitle}</h3>
+        <ol class="early">
+          {
+            early.map((e) => (
+              <li>
+                <span class:list={["year t-stat", { hot: e.hot }]}>{e.year}</span>
+                <span class="game-cell">
+                  <span class="glogo glogo-sm"><img src={e.logo} alt="" loading="lazy" decoding="async" /></span>
+                  <span class="game" set:html={e.game} />
+                </span>
+                <span class="line">
+                  <span set:html={e.season} /> <strong set:html={e.line} />
+                  <span class="links links-sm">
+                    <a class="out link" href={e.animation} target="_blank" rel="noopener">Game animation<span class="sr-only"> for {e.year} (opens in a new tab)</span><Fragment set:html={ext} /></a>
+                    <a class="out link" href={tba(e.year)} target="_blank" rel="noopener">Results<span class="sr-only"> for {e.year} on The Blue Alliance (opens in a new tab)</span><Fragment set:html={ext} /></a>
+                  </span>
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section class="section ftc" id="ftc" aria-labelledby="ftc-title">
+      <div class="wrap">
+        <header class="ftc-head">
+          <h2 id="ftc-title" class="t-h2">{page.ftcTitle}</h2>
+          <p class="t-lead" set:html={page.ftcIntro} />
+        </header>
+        <ul class="ftc-list">
+          {
+            ftc.map((t) => (
+              <li>
+                <figure class="frame chamfer shot-ftc frame-hover">
+                  <img src={t.photo} alt={t.photoAlt} loading="lazy" decoding="async" />
+                </figure>
+                <p class="id t-stat"><span class="prog">FTC</span> {t.number}</p>
+                <h3 class="t-h3">{t.name}</h3>
+                <p class="t-label since">{t.since}</p>
+                <p class="text">{t.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="wrap cta-grid">
+        <h2 id="cta-title" class="cta-title">{page.cta.title}</h2>
+        <div class="cta-copy">
+          <p>{page.cta.text}</p>
+          <a class="btn btn-paper" href={page.cta.href}>{page.cta.primary}<Fragment set:html={arrow} /></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Nav is absolutely positioned (it floats over the homepage reel); here it sits over the intro. */
+  .top { position: relative; z-index: 10; }
+
+  /* ── Intro ── */
+  .intro { background: var(--hull-0); padding: calc(88px + clamp(2.5rem, 1rem + 5vw, 5rem)) 0 var(--section-y); }
+  .grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
+  .copy { display: grid; gap: 1.5rem; justify-items: start; }
+  .copy h1 { font-size: clamp(2.8rem, 1.2rem + 4.6vw, 5.5rem); }
+  .plate { display: grid; grid-template-columns: repeat(4, auto); box-shadow: inset 0 0 0 1px var(--seam); }
+  .plate div { padding: 0.8rem 1.1rem; box-shadow: inset -1px 0 0 var(--seam); }
+  .plate div:first-child dd { color: var(--red-hot); }
+  .plate dd { margin-top: 0.3rem; font-size: 1.6rem; }
+  .plate dt :global(em) { margin-right: 0.12em; }
+  .shot { aspect-ratio: 4 / 3; }
+  .shot img { object-position: 50% 55%; }
+
+  /* ── This season ── */
+  .current { background: var(--hull-1); }
+  .current-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
+  .studio { aspect-ratio: 1 / 1; background: #fff; }
+  .studio img { object-fit: contain; }
+  .kicker { color: var(--red-hot); margin-top: 1.25rem; }
+
+  /* Game logos: white plates so each season's art shows as FIRST made it. */
+  /* Block (not grid) so the image's 100% height resolves against the plate's fixed height; contain then fits and
+     centres every logo whatever its shape. A small corner cut, inside the padding, so it never nips the art. */
+  .glogo {
+    --cut: 8px;
+    flex: none; display: block; width: 7.5rem; height: 5rem; padding: 0.6rem 0.75rem; background: #fff;
+    clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  }
+  .glogo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 50%; }
+  .glogo-lg { width: 11rem; height: 7rem; }
+  .glogo-sm { --cut: 6px; width: 4.5rem; height: 3rem; padding: 0.35rem 0.45rem; }
+
+  /* External links */
+  .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1.25rem; }
+  .out { display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 750; font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+  .out :global(svg) { width: 0.8rem; height: 0.8rem; color: var(--red-hot); transition: transform 220ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) { .out:hover :global(svg) { transform: translate(2px, -2px); } }
+  .links-sm { display: flex; margin-top: 0.5rem; gap: 0.4rem 1.25rem; }
+  .links-sm .out { font-size: 0.75rem; }
+  .kicker :global(span) { color: inherit; }
+  .current-copy h2 { margin-top: 0.75rem; font-size: clamp(3.5rem, 2rem + 5vw, 7rem); }
+  .features { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .features li {
+    padding: 0.45rem 0.8rem; box-shadow: inset 0 0 0 1px var(--seam); color: var(--ink-2); font-size: var(--text-small);
+  }
+  .results { margin-top: 2rem; border-top: 1px solid var(--seam); }
+  .results div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--seam); }
+  .results dt { font-weight: 800; font-stretch: 80%; text-transform: uppercase; font-size: 1.05rem; }
+  .results dd { color: var(--ink-2); }
+  .results dt .date { display: block; margin-top: 0.2rem; }
+  .date { color: var(--ink-3); letter-spacing: 0.1em; white-space: nowrap; }
+  .res dt .date { margin-left: 0.35rem; font-size: 0.75rem; }
+  .results div:first-child dd { color: var(--ink); }
+
+  /* ── Past robots: a ledger, newest first ── */
+  .past { background: var(--hull-0); }
+  .ledger { margin-top: 3rem; border-top: 1px solid var(--seam); }
+  .row {
+    display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(0, 3fr); gap: 2.25rem; align-items: start;
+    padding: 1.75rem 0; border-bottom: 1px solid var(--seam); scroll-margin-top: 1rem;
+  }
+  .shot-sm { aspect-ratio: 4 / 3; }
+  .year { font-size: 1.6rem; color: var(--ink-3); }
+  .year.hot { color: var(--red-hot); }
+  .head { display: flex; align-items: center; gap: 1.1rem; }
+  .name-line { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.4rem 1rem; }
+  .main h3 { margin-top: 0.35rem; font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); }
+  .game :global(em) { margin-right: 0.12em; }
+  .season { margin-top: 0.75rem; color: var(--ink-2); max-width: 52ch; }
+  .season-lead { margin-top: 1rem; max-width: 40em; }
+  .feat { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .feat li { padding: 0.35rem 0.65rem; box-shadow: inset 0 0 0 1px var(--seam); color: var(--ink-3); font-size: 0.875rem; }
+  .res div + div { margin-top: 0.75rem; }
+  .res dt { font-weight: 800; font-stretch: 80%; text-transform: uppercase; font-size: 0.95rem; }
+  .res dd { margin-top: 0.15rem; color: var(--ink-3); font-size: var(--text-small); }
+  .res dt :global(em), .results dt :global(em) { margin-right: 0.12em; }
+
+  .early-title { margin-top: 3.5rem; }
+  .early { margin-top: 1rem; border-top: 1px solid var(--seam); }
+  .early li { display: grid; grid-template-columns: 5.5rem minmax(0, 17rem) 1fr; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--seam); }
+  .game-cell { display: flex; align-items: center; gap: 0.9rem; }
+  .early .year { font-size: 1.45rem; }
+  .early .game { font-weight: 850; font-stretch: 74%; font-size: 1.2rem; text-transform: uppercase; }
+  .early .line { color: var(--ink-3); font-size: var(--text-small); }
+  .early .line strong { font-weight: 400; color: var(--ink-2); }
+
+  /* ── FTC ── */
+  .ftc { background: var(--hull-1); }
+  .ftc-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 2rem; align-items: end; }
+  .ftc-head .t-lead { justify-self: end; }
+  .ftc-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .shot-ftc { aspect-ratio: 4 / 3; }
+  .id { margin-top: 1.25rem; font-size: 1.05rem; color: var(--ink-3); letter-spacing: 0.08em; }
+  .id .prog { color: var(--red-hot); }
+  .ftc-list h3 { margin-top: 0.35rem; }
+  .since { margin-top: 0.5rem; }
+  .text { margin-top: 0.9rem; color: var(--ink-2); max-width: 36ch; }
+
+  /* ── Closing ask: the page's one red field ── */
+  .cta {
+    position: relative; background: var(--red); color: #fff;
+    padding: calc(var(--section-y) + 2rem) 0 var(--section-y);
+    clip-path: polygon(0 4rem, 100% 0, 100% 100%, 0 100%);
+    margin-top: -4rem;
+  }
+  .cta-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; align-items: end; }
+  .cta-title { font-size: clamp(3rem, 1.4rem + 5.2vw, 6rem); font-weight: 900; font-stretch: 62%; line-height: 0.88; text-transform: uppercase; text-wrap: balance; }
+  .cta-copy { display: grid; gap: 1.5rem; justify-items: start; font-size: var(--text-lead); line-height: 1.5; font-stretch: 92%; }
+
+  @media (max-width: 1099px) {
+    .row { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+    .res { grid-column: 2; }
+    .shot-sm { grid-row: span 2; }
+  }
+  @media (max-width: 899px) {
+    .intro { padding-top: calc(88px + 1.5rem); }
+    .grid, .current-grid, .ftc-head, .cta-grid { grid-template-columns: 1fr; }
+    .ftc-head .t-lead { justify-self: start; }
+    .plate { grid-template-columns: repeat(2, 1fr); width: 100%; }
+    .plate div:nth-child(-n + 2) { box-shadow: inset -1px -1px 0 var(--seam); }
+    .studio { max-width: 28rem; }
+    .results div { grid-template-columns: 1fr; gap: 0.2rem; }
+    .row { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem 0 2rem; }
+    .res { grid-column: auto; }
+    .shot-sm { grid-row: auto; }
+    .early li { grid-template-columns: 4.5rem 1fr; align-items: start; }
+    .glogo { width: 6rem; height: 4rem; }
+    .glogo-lg { width: 9rem; height: 5.75rem; }
+    .early .line { grid-column: 2; }
+    .ftc-list { grid-template-columns: 1fr; gap: 3rem; }
+    .cta { clip-path: polygon(0 2rem, 100% 0, 100% 100%, 0 100%); margin-top: -2rem; }
+    .cta-copy .btn { width: 100%; }
+  }
+</style>
