@@ -5,11 +5,18 @@ import { meta } from "@/data/site"
 interface Props {
   title?: string
   description?: string
+  /** Share image for link previews, a path under /public. */
+  image?: string
 }
 const {
   title = meta.title,
   description = meta.description,
+  image = "/photos/PXL_20260316_001849702.jpg",
 } = Astro.props
+// Link previews and search engines need absolute URLs.
+// Same form the menu and sitemap use: "/robots", not "/robots/".
+const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, "$1"), Astro.site)
+const shareImage = new URL(image, Astro.site)
 ---
 
 <!doctype html>
@@ -23,10 +30,14 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/big-shoulders-stencil-display-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap.xml" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/photos/PXL_20260316_001849702.jpg" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Stealth Robotics" />
+    <meta property="og:image" content={shareImage} />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
