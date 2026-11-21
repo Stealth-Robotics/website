@@ -1,0 +1,41 @@
+---
+import { contactCta as cta, contact } from "@/data/site"
+
+const mail = `mailto:${contact.email}?subject=${encodeURIComponent("Hello from the website")}`
+const arrow = `<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg>`
+---
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap grid">
+    <h2 id="contact-title" class="title">{cta.title}</h2>
+    <div class="copy">
+      <p>{cta.text}</p>
+      <div class="actions">
+        <a class="btn btn-paper" href={mail}>{cta.primary}<Fragment set:html={arrow} /></a>
+        <a class="btn btn-ink" href={cta.secondaryHref}>{cta.secondary}</a>
+      </div>
+      <p class="addr"><a class="link" href={`mailto:${contact.email}`}>{contact.email}</a></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The homepage's one red field, entering on a slanted top edge like the other pages' closing bands. */
+  .contact {
+    position: relative; background: var(--red); color: #fff;
+    padding: calc(var(--section-y) + 2rem) 0 var(--section-y);
+    clip-path: polygon(0 4rem, 100% 0, 100% 100%, 0 100%);
+    margin-top: -4rem;
+  }
+  .grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; align-items: end; }
+  .title { font-size: clamp(3rem, 1.4rem + 5.2vw, 6rem); font-weight: 900; font-stretch: 62%; line-height: 0.88; text-transform: uppercase; text-wrap: balance; }
+  .copy { display: grid; gap: 1.5rem; justify-items: start; font-size: var(--text-lead); line-height: 1.5; font-stretch: 92%; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .addr { font-size: var(--text-small); color: rgba(255, 255, 255, 0.86); }
+  .addr a { color: #fff; font-weight: 700; }
+  @media (max-width: 899px) {
+    .contact { clip-path: polygon(0 2rem, 100% 0, 100% 100%, 0 100%); margin-top: -2rem; }
+    .grid { grid-template-columns: 1fr; }
+    .actions .btn { flex: 1 1 100%; }
+  }
+</style>

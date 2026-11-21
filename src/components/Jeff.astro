@@ -1,0 +1,61 @@
+---
+// Homepage feature for this season's robot. Facts come from the same data as /robots, so the two never drift.
+import { current, robotsPage } from "@/data/robots"
+
+const arrow = `<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg>`
+
+const lead = `Named after one of our mentors, Jeff runs on swerve drive and shoots from a 172° turret, fed by an intake that reaches over the bumper. He won Glacier Peak as the #1 seed, then took the team to the <em>FIRST</em> Championship in Houston, where he finished 9th of 74 in the Milstein division.`
+const plate = [
+  { label: "Glacier Peak", value: "Winner" },
+  { label: "Auburn", value: "Finalist" },
+  { label: "Milstein division", value: "9th of 74" },
+]
+---
+
+<section class="section jeff" id="jeff" aria-labelledby="jeff-title">
+  <div class="wrap grid">
+    <figure class="frame chamfer-lg studio">
+      <img src={current.photo} alt={current.photoAlt} loading="lazy" decoding="async" />
+    </figure>
+    <div class="copy">
+      <p class="t-label kicker">{robotsPage.currentLabel} · {current.year} · <span set:html={current.game} /></p>
+      <h2 id="jeff-title" class="t-h2">Meet <span class="red">{current.name}</span></h2>
+      <p class="t-lead" set:html={lead} />
+      <dl class="plate">
+        {
+          plate.map((p) => (
+            <div>
+              <dt class="t-label">{p.label}</dt>
+              <dd class="t-stat">{p.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <a class="btn btn-ghost btn-nose" href={`/robots#${current.id}`}>
+        Meet every robot
+        <span class="nose" aria-hidden="true"><Fragment set:html={arrow} /></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .jeff { background: var(--hull-1); }
+  .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
+  /* The studio shot is on white; a white plate lets it sit like a product photo. */
+  .studio { aspect-ratio: 1 / 1; background: #fff; }
+  .studio img { object-fit: contain; }
+  .copy { display: grid; gap: 1.5rem; justify-items: start; }
+  .kicker { color: var(--red-hot); }
+  .copy h2 { font-size: clamp(3rem, 1.8rem + 4.4vw, 6rem); }
+  .plate { display: grid; grid-template-columns: repeat(3, auto); box-shadow: inset 0 0 0 1px var(--seam); }
+  .plate div { padding: 0.8rem 1.1rem; box-shadow: inset -1px 0 0 var(--seam); }
+  .plate div:first-child dd { color: var(--red-hot); }
+  .plate dd { margin-top: 0.3rem; font-size: 1.45rem; }
+  @media (max-width: 899px) {
+    .grid { grid-template-columns: 1fr; }
+    .studio { max-width: 28rem; }
+    .plate { width: 100%; grid-template-columns: repeat(3, 1fr); }
+    .btn { width: 100%; }
+  }
+</style>
