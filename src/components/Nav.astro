@@ -1,5 +1,8 @@
 ---
 import { nav } from "@/data/site"
+// "/about/" → "/about", but the homepage stays "/" so its link can be marked current too.
+const path = Astro.url.pathname.replace(/\/$/, "") || "/"
+const onSponsor = path === nav.ctaHref
 ---
 
 <header class="nav">
@@ -7,18 +10,18 @@ import { nav } from "@/data/site"
     <img src="/brand/stealth-lockup.png" alt="Stealth Robotics 4089" width="1048" height="512" />
   </a>
   <nav aria-label="Primary" class="links">
-    {nav.links.map((l) => <a class="link" href={l.href} set:html={l.label} />)}
+    {nav.links.map((l) => <a class="link" href={l.href} aria-current={l.href === path ? "page" : undefined} set:html={l.label} />)}
   </nav>
-  <a class="btn btn-red cta" href="#sponsor">{nav.cta}</a>
+  <a class="btn btn-red cta" href={nav.ctaHref} aria-current={onSponsor ? "page" : undefined}>{nav.cta}</a>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn>
     <span class="sr-only">Menu</span>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h12" stroke="currentColor" stroke-width="2"></path></svg>
   </button>
   <div class="menu" id="menu" hidden data-menu>
     <nav aria-label="Mobile">
-      {nav.links.map((l) => <a href={l.href} data-menu-link set:html={l.label} />)}
+      {nav.links.map((l) => <a href={l.href} aria-current={l.href === path ? "page" : undefined} data-menu-link set:html={l.label} />)}
     </nav>
-    <a class="btn btn-red" href="#sponsor" data-menu-link>{nav.cta}</a>
+    <a class="btn btn-red" href={nav.ctaHref} aria-current={onSponsor ? "page" : undefined} data-menu-link>{nav.cta}</a>
   </div>
 </header>
 
@@ -36,6 +39,7 @@ import { nav } from "@/data/site"
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
   }
   .links a { padding-block: 0.75rem 0.55rem; }
+  .links a[aria-current="page"] { background-size: 100% 1.5px; }
   .cta { min-height: 2.75rem; padding: 0 1.1rem; font-size: 0.8125rem; }
   .menu-btn {
     display: none; margin-left: auto; width: 2.75rem; height: 2.75rem; border: 0; background: rgba(11, 12, 14, 0.7); color: var(--ink); cursor: pointer;

@@ -1,0 +1,168 @@
+---
+import Layout from "@/layouts/main.astro"
+import Nav from "@/components/Nav.astro"
+import Footer from "@/components/Footer.astro"
+import { sponsorsPage as page } from "@/data/site"
+
+const arrow = `<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg>`
+// Strip the FIRST italics for attributes (alt text, labels).
+const plain = (s: string) => s.replace(/<[^>]+>/g, "")
+---
+
+<Layout title={page.meta.title} description={page.meta.description} image="/photos/PXL_20260316_001849702.jpg">
+  <div class="top">
+    <Nav />
+  </div>
+
+  <main id="main">
+    <section class="intro" aria-labelledby="sponsors-title">
+      <div class="wrap grid">
+        <div class="copy">
+          <h1 id="sponsors-title" class="t-display" data-enter>
+            {page.titleA} <span class="red">{page.titleB}</span>
+          </h1>
+          <p class="t-lead" data-enter="2" set:html={page.lead} />
+        </div>
+        <figure class="frame chamfer-lg shot" data-enter="2">
+          <img src={page.photo} alt={page.photoAlt} loading="eager" fetchpriority="high" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section wall" aria-labelledby="wall-title">
+      <div class="wrap">
+        <h2 id="wall-title" class="t-h2">{page.wallTitle}</h2>
+        <ul class="plates">
+          {
+            page.sponsors.map((s) => {
+              // Every tile carries the name as a caption: several logos are marks with no name in them.
+              const inner = (
+                <Fragment>
+                  <span class:list={["plate chamfer", s.size && `is-${s.size}`]}>
+                    {s.logo && s.wordmark ? (
+                      <span class={`lockup ${s.wordmark.position}`}>
+                        <img src={s.logo} alt="" loading="lazy" decoding="async" />
+                        <span class="wordmark" style={s.wordmark.style}>{s.wordmark.text}</span>
+                      </span>
+                    ) : s.logo ? (
+                      <img src={s.logo} alt="" loading="lazy" decoding="async" />
+                    ) : (
+                      <span class="name" set:html={s.name} />
+                    )}
+                  </span>
+                  <span class="caption t-label" set:html={s.name} />
+                </Fragment>
+              )
+              return (
+                <li>
+                  {s.url ? (
+                    <a class="tile" href={s.url} target="_blank" rel="noopener" aria-label={`${plain(s.name)} website (opens in a new tab)`}>
+                      {inner}
+                    </a>
+                  ) : (
+                    <div class="tile">{inner}</div>
+                  )}
+                </li>
+              )
+            })
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="join" aria-labelledby="join-title">
+      <div class="wrap join-grid">
+        <h2 id="join-title" class="join-title">{page.join.title}</h2>
+        <div class="join-copy">
+          <p>{page.join.text}</p>
+          <a class="btn btn-paper" href={page.join.href}>{page.join.primary}<Fragment set:html={arrow} /></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Nav is absolutely positioned (it floats over the homepage reel); here it sits over the intro. */
+  .top { position: relative; z-index: 10; }
+
+  .intro { background: var(--hull-0); padding: calc(88px + clamp(2.5rem, 1rem + 5vw, 5rem)) 0 var(--section-y); }
+  .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
+  .copy { display: grid; gap: 1.6rem; }
+  .copy h1 { font-size: clamp(2.8rem, 1.2rem + 4.6vw, 5.5rem); }
+  .shot { aspect-ratio: 4 / 3; }
+  .shot img { object-position: 50% 45%; }
+
+  /* The wall: white plates like the robot's sponsor board, so every logo shows in its own colours. */
+  .wall { background: var(--hull-1); }
+  .plates { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 3rem; }
+  .tile { display: grid; gap: 0.7rem; }
+  .plate {
+    display: grid; place-items: center; aspect-ratio: 3 / 2; padding: 1.5rem 2rem;
+    background: #fff; color: var(--hull-0);
+    transition: transform 220ms var(--ease-out);
+  }
+  /* One box for every logo; contain keeps wide wordmarks and square badges at a similar visual weight. */
+  .plate img { width: 100%; height: 100%; max-height: 6.5rem; object-fit: contain; }
+  /* Compact badges (square or portrait) get most of the plate's height. A % height can't resolve in a plate
+     sized by aspect-ratio, so this is a fixed cap tuned to the 4-up tile (~210px tall). */
+  .plate { overflow: hidden; }
+  .plate.is-lg { padding: 0.85rem 1.25rem; }
+  .plate.is-lg img { max-height: 10rem; }
+
+  /* Mark + name lockups for logos that are only a mark. */
+  .lockup { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; height: 100%; }
+  .lockup.above { flex-direction: column-reverse; }
+  .lockup.below { flex-direction: column; }
+  .lockup.right { gap: 0.9rem; }
+  .lockup img { width: auto; height: 4.25rem; max-width: 100%; max-height: none; flex: none; }
+  .lockup.right img { height: 4rem; }
+  .wordmark { max-width: 100%; font-size: clamp(1.05rem, 0.75rem + 0.8vw, 1.5rem); line-height: 1; text-transform: uppercase; text-align: center; text-wrap: balance; }
+  .lockup.right .wordmark { font-size: clamp(0.8rem, 0.6rem + 0.45vw, 1rem); text-align: left; white-space: normal; max-width: 9em; line-height: 1.35; }
+  .name {
+    text-align: center; text-wrap: balance;
+    font-weight: 850; font-stretch: 74%; font-size: clamp(1.15rem, 0.9rem + 0.8vw, 1.6rem); line-height: 1.05; text-transform: uppercase;
+  }
+  .name :global(em), .caption :global(em) { margin-right: 0.12em; }
+  .caption { color: var(--ink-3); transition: color 200ms ease; }
+  a.tile:focus-visible { outline: none; }
+  a.tile:focus-visible .plate { outline: 3px solid var(--focus); outline-offset: 3px; clip-path: none; }
+  @media (hover: hover) and (pointer: fine) {
+    a.tile:hover .caption { color: var(--ink); }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    a.tile:hover .plate { transform: translateY(-3px); }
+  }
+
+  /* Closing ask: the page's one red field. */
+  .join {
+    position: relative; background: var(--red); color: #fff;
+    padding: calc(var(--section-y) + 2rem) 0 var(--section-y);
+    clip-path: polygon(0 4rem, 100% 0, 100% 100%, 0 100%);
+    margin-top: -4rem;
+  }
+  .join-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; align-items: end; }
+  .join-title { font-size: clamp(3rem, 1.4rem + 5.2vw, 6rem); font-weight: 900; font-stretch: 62%; line-height: 0.88; text-transform: uppercase; text-wrap: balance; }
+  .join-copy { display: grid; gap: 1.5rem; justify-items: start; font-size: var(--text-lead); line-height: 1.5; font-stretch: 92%; }
+
+  @media (max-width: 1099px) {
+    .plates { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 899px) {
+    .intro { padding-top: calc(88px + 1.5rem); }
+    .grid, .join-grid { grid-template-columns: 1fr; }
+    .plates { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+    .plate { padding: 1rem 1.25rem; }
+    .plate img { max-height: 4.5rem; }
+    .plate.is-lg { padding: 0.6rem 1rem; }
+    .plate.is-lg img { max-height: 7rem; }
+    .lockup { gap: 0.4rem; }
+    .lockup img { height: 2.6rem; }
+    .lockup.right img { height: 2.5rem; }
+    .lockup.right { gap: 0.55rem; }
+    .join { clip-path: polygon(0 2rem, 100% 0, 100% 100%, 0 100%); margin-top: -2rem; }
+    .join-copy .btn { width: 100%; }
+  }
+</style>

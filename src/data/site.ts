@@ -6,6 +6,8 @@ const F = "<em>FIRST</em>"
 
 export const contact = {
   email: "stealthrobotics@gmail.com",
+  // The booster club's own address (from its page on the old site); used for anything about giving.
+  boosters: "stealthboosters@gmail.com",
   instagram: "https://www.instagram.com/stealthrobotics",
   youtube: "https://www.youtube.com/@stealthrobotics",
   facebook: "https://www.facebook.com/stealthrobotics",
@@ -16,35 +18,38 @@ export const contact = {
 export const meta = {
   title: "Stealth Robotics · FRC Team 4089, Duvall, WA",
   description:
-    "Student-built FIRST robots from Cedarcrest High School in Duvall, WA. FRC Team 4089 and two FTC teams. Help fund the 2027 season.",
+    "Student-built FIRST robots from Cedarcrest High School in Duvall, WA. FRC Team 4089 and two FTC teams. Donate to support the team.",
 }
 
 export const nav = {
   links: [
-    { label: "About", href: "#about" },
-    { label: F, href: "#first" },
-    { label: "Teams", href: "#teams" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Robots", href: "/robots" },
+    { label: "Sponsors", href: "/sponsors" },
   ],
-  cta: "Sponsor 2027",
+  cta: "Donate",
+  ctaHref: "/donate",
 }
 
 export const hero = {
   titleA: "More than",
   titleB: "robots.",
-  lead: `Founded in 2012, Stealth Robotics is the ${F} robotics program at Cedarcrest High School in Duvall, Washington. Students gain real engineering experience building robots from the ground up and competing with teams from around the world.`,
+  lead: `Stealth Robotics is the ${F} robotics program at Cedarcrest High School in Duvall, Washington. Students gain real engineering experience building robots from the ground up and competing with teams from around the world.`,
   primary: "Join the team",
   secondary: "Support Stealth",
 }
 
 export const about = {
-  eyebrow: "Who are we?",
   titleA: "Stealth Robotics",
   titleB: "4089",
   body: [
-    `Stealth Robotics is the robotics team and club at Cedarcrest High School in Duvall, Washington. We started in 2012 and have been growing ever since.`,
-    `We're student members and adult mentors who want to spread STEM through our school community and beyond. We do it by competing in multiple ${F} programs, and by taking our robots out to demos and outreach events in our local community.`,
+    // The hero already says where we are; this section carries when we started and who we are.
+    `Since 2012 we have grown into a team and club of student members and adult mentors who want to spread STEM through our school community and beyond.`,
+    `We do it by competing in multiple ${F} programs, and by taking our robots out to demos and outreach events in our local community.`,
   ],
-  cta: "Meet the teams",
+  cta: "More about us",
+  ctaHref: "/about",
   photo: "/photos/team-glacier-peak-2024.jpg",
   photoAlt: "About thirty Stealth Robotics students and mentors in black team shirts posing on the field at the 2024 Glacier Peak event",
 }
@@ -137,11 +142,40 @@ export const teams = {
   },
 }
 
+// /about: the team's story, how the program works, then the robot history, outreach and joining.
+// Story facts (founder, 400+ students, outreach venues) are from the team's own About Us page on the old site.
+export const aboutPage = {
+  meta: {
+    title: "About · Stealth Robotics",
+    description: "Stealth Robotics is the FIRST robotics program at Cedarcrest High School in Duvall, WA: FRC Team 4089 and its FTC teams, founded in 2012.",
+  },
+  titleA: "About",
+  titleB: "Stealth",
+  lead: `Stealth Robotics is the ${F} robotics team and club at Cedarcrest High School in Duvall, Washington. Head mentor Kevin Ross started it in 2012, and since then more than 400 students have come through the shop.`,
+  body: `Students and adult mentors build robots together, compete in multiple ${F} programs, and take what they make out into the community: freshman orientation, elementary schools, expos, parades and classes at local art centers.`,
+  plate: [
+    { label: "Founded", value: "2012" },
+    { label: "Home", value: "Cedarcrest HS" },
+    { label: "Students", value: "400+" },
+  ],
+  photo: "/photos/IMG_5281.jpg",
+  photoAlt: "A Stealth student waving the team's black STEALTH flag in the stands above the field",
+  how: {
+    title: "How Stealth works",
+    items: [
+      { title: "One program, several teams", text: `FRC Team 4089 is the flagship. Alongside it run our ${F} Tech Challenge teams, each with its own robot, name and identity.` },
+      { title: "Students do the work", text: "Students design in CAD, machine parts, wire, code and drive. They also run the business side, from sponsorship to outreach." },
+      { title: "Mentors alongside", text: "Adult mentors teach, guide and help students work through problems, and the robots stay student-built." },
+      { title: "Two seasons a year", text: "FTC kicks off in September and FRC in January, so the shop is busy for most of the school year." },
+    ],
+  },
+}
+
 export const history = {
-  title: "Robots by first name, 2016 to 2026",
-  intro: `Our rookie year, 2012, brought a Rookie All-Star award and a first trip to the ${F} Championship. From 2016 on, every robot got a first name.`,
+  title: "Robots named for our mentors, 2016 to 2026",
+  intro: `Our rookie year, 2012, brought a Rookie All-Star award and a first trip to the ${F} Championship. Since 2016, every robot has been named after one of our mentors.`,
   robots: [
-    { year: "2026", name: "Jeff", line: "Named for a mentor. Won Glacier Peak; 9th in Milstein.", hot: true },
+    { year: "2026", name: "Jeff", line: "Turret shooter on swerve. Won Glacier Peak; 9th in Milstein.", hot: true },
     { year: "2025", name: "Sidd", line: "PVC coral and rubber algae balls in REEFSCAPE." },
     { year: "2024", name: "Mike", line: "Creativity Award and Innovation in Control, same season." },
     { year: "2023", name: "Ben", line: "Cones, cubes and a tilting charge station in CHARGED UP." },
@@ -152,7 +186,8 @@ export const history = {
     { year: "2017", name: "Jim", line: "Gears, fuel balls and a rope climb in STEAMWORKS." },
     { year: "2016", name: "Kevin", line: `Built for ${F} STRONGHOLD: boulders, defenses and a castle tower.` },
   ],
-  ftc: "FTC, 2021–22 · Autonomous Prime was on the alliance that won state; Jankbot won an event and the Think Award.",
+  more: "See every robot",
+  moreHref: "/robots",
 }
 
 export const outreach = {
@@ -170,28 +205,143 @@ export const outreach = {
   ],
 }
 
+// A sponsor shows as a name plate until a logo file (in /public/sponsors/) and website are added.
+// size "lg": compact badges get a bigger box so they carry the same weight as wide wordmarks.
+// wordmark: for logos that are only a mark, the name is set beside or under it in the sponsor's own style.
+export type Sponsor = {
+  name: string
+  logo?: string
+  url?: string
+  size?: "lg"
+  wordmark?: { text: string; position: "above" | "below" | "right"; style: string }
+}
+
+// 2025–26 season sponsors of the whole program (FRC and FTC). Source: the end card of the 2026 "Robot Reveal: Jeff"
+// video (see PRODUCT.md). Add any FTC-only sponsors that card missed.
+const sponsors2026: Sponsor[] = [
+  { name: "Aldermoss", logo: "/sponsors/aldermoss.png", url: "https://aldermoss.com" },
+  { name: "Station 68" },
+  { name: "MOD Pizza", logo: "/sponsors/mod-pizza.svg", url: "https://modpizza.com" },
+  { name: "Gene Haas Foundation", logo: "/sponsors/gene-haas-foundation.png", url: "https://www.ghaasfoundation.org", size: "lg" },
+  {
+    name: "Sani-Tech", logo: "/sponsors/sani-tech.svg", url: "https://www.sanitech.net",
+    // Matches their lockup: heavy italic caps set above the auger mark.
+    wordmark: { text: "Sani-Tech", position: "above", style: "font-style:italic;font-weight:900;font-stretch:100%;letter-spacing:0.01em;color:#111" },
+  },
+  { name: "The Grange", logo: "/sponsors/the-grange.png", url: "https://thegrangeduvall.com", size: "lg" },
+  { name: "Google", logo: "/sponsors/google.svg", url: "https://www.google.com" },
+  { name: "Boeing", logo: "/sponsors/boeing.svg", url: "https://www.boeing.com" },
+  { name: "Costco", logo: "/sponsors/costco.svg", url: "https://www.costco.com" },
+  { name: `${F} Washington`, logo: "/sponsors/first-washington.png", url: "https://firstwa.org" },
+  { name: "Microsoft", logo: "/sponsors/microsoft.svg", url: "https://www.microsoft.com" },
+  {
+    name: "Novelty Hill IP", logo: "/sponsors/novelty-hill-ip-mark.svg", url: "https://www.noveltyhillip.com",
+    // Matches noveltyhillip.com's header: the hex mark with widely tracked caps in deep indigo beside it.
+    wordmark: { text: "Novelty Hill IP", position: "right", style: "font-weight:600;font-stretch:100%;letter-spacing:0.22em;color:#241268" },
+  },
+  { name: "Issaquah Lumber", logo: "/sponsors/issaquah-lumber.png", url: "https://issaquahlumber.com" },
+  { name: "Riverview School District", logo: "/sponsors/riverview-school-district.png", url: "https://www.rsd407.org", size: "lg" },
+  {
+    name: "Cedarcrest High School", logo: "/sponsors/cedarcrest-high-school.png", url: "https://www.chs.rsd407.org",
+    // The Red Wolves head carries no name; set it in the school's maroon underneath.
+    wordmark: { text: "Cedarcrest High School", position: "below", style: "font-weight:850;font-stretch:74%;letter-spacing:0.02em;color:#7a1c25" },
+  },
+  { name: "Cedarcrest PTSA", logo: "/sponsors/cedarcrest-ptsa.jpg", url: "https://cedarcrestptsa.org", size: "lg" },
+]
+
+// The homepage's red field: the short ask. How to give lives on /donate, the sponsor showcase on /sponsors.
 export const sponsor = {
-  title: "The 2027 season needs $25,000",
-  pitch: "State OSPI funding cuts left the program short. The booster club needs $25,000 to build and compete in 2027. Students run the robots and the business side. Last season they took Jeff to Houston, ranked 9th of 74 in the Milstein division and finished in the top 2% worldwide.",
-  buildsTitle: "What $25,000 builds",
+  title: "The 2026–27 season needs $25,000",
+  pitch: `The booster club needs $25,000 to run all of Stealth for the 2026–27 season: FRC Team 4089 and our FTC teams, from the first build to the last event. Last season the FRC team finished in the top 2% worldwide at the ${F} Championship and FTC Smelt reached the Washington State Championship. This season both FTC teams opened 6–0.`,
+  buildsTitle: "What your gift builds",
   builds: [
-    { title: "Robot parts", text: "Motors, swerve modules, metal and wiring for the 2027 robots." },
+    { title: "Robot parts", text: "Motors, metal, wiring and electronics for the FRC robot and every FTC robot." },
     { title: "Tools and equipment", text: "The shop equipment and hand tools students use to cut, drill and assemble parts." },
-    { title: "Registration and travel", text: "Entry fees for district events, and the trip if a robot qualifies for more." },
-    { title: "Team uniforms", text: "Black team wear with the white Stealth mark, for the pit and the stands." },
+    { title: "Registration and travel", text: "Entry fees for FRC district events and FTC league meets, and the trip when a team qualifies for more." },
+    { title: "Community outreach", text: "Robot demos at elementary STEAM nights, workshops for younger kids, and the FTC league meets we host at Cedarcrest." },
   ],
-  routes: [
-    { title: "Give through the booster club", text: `Gifts go to the CHS ${F} Robotics Stealth 4089 Booster Club, a 501(c)(3), and are tax-deductible. The booster club accepts Microsoft and Google matching gifts, so check your employer's portal first.` },
-    { title: `Give through ${F} Washington`, text: `Prefer to give through ${F}? Make a designated gift to ${F} Washington for Team 4089.` },
-    { title: "Ask for the sponsor letter", text: "The 2027 sponsorship letter, and answers to any question, from stealthrobotics@gmail.com." },
-  ],
-  primary: "Sponsor the 2027 season",
+  primary: "Ways to give",
+  primaryHref: "/donate",
   secondary: "Email the booster club",
-  sponsorsTitle: "Jeff's 2026 sponsors",
-  sponsors: [
-    "Aldermoss", "Station 68", "MOD Pizza", "Gene Haas Foundation", "Sani-Tech", "The Grange", "Google", "Boeing", "Costco",
-    `${F} Washington`, "Microsoft", "Novelty Hill IP", "Issaquah Lumber", "Riverview School District", "Cedarcrest High School", "Cedarcrest PTSA",
-  ],
+  sponsorsTitle: "Our 2025–26 sponsors",
+  sponsorsLink: "Meet our sponsors",
+  sponsorsHref: "/sponsors",
+  sponsors: sponsors2026,
+}
+
+// /donate: the ask, what it builds and how to give.
+// /donate. Giving details are from the old site's Donate and Booster Club pages.
+export const donatePage = {
+  meta: {
+    title: "Donate · Stealth Robotics",
+    description: "Donate to Stealth Robotics, the FIRST robotics program at Cedarcrest High School in Duvall, WA (FRC Team 4089 and its FTC teams). Give online, by check, through a matching gift or as a sponsor.",
+  },
+  titleA: "Support",
+  titleB: "Stealth Robotics",
+  lead: `Students design, build and code every Stealth robot, and they run the business side too. What they can't do alone is pay for it. Gifts from families, neighbors and local businesses are what keep our ${F} teams competing.`,
+  proof: "Backed by Boeing, Microsoft, Google, the Gene Haas Foundation and 12 more.",
+  proofLink: "Meet our sponsors",
+  proofHref: "/sponsors",
+  online: { label: "Donate online", href: "https://secure.givelively.org/donate/washington-first-robotics/frc-4089" },
+  photo: "/photos/team-banner-field.jpg",
+  photoAlt: "The Stealth team with the 2026 Glacier Peak event winner banner on the field",
+  give: {
+    title: "How to give",
+    intro: "Pick whichever route suits you. Every one of them reaches the team, and if you are unsure, write to the booster club and they will walk you through it.",
+    routes: [
+      {
+        title: "Give online",
+        text: "Make a one-time or monthly gift through our GiveLively campaign. It takes a couple of minutes.",
+        link: { label: "Donate online", href: "https://secure.givelively.org/donate/washington-first-robotics/frc-4089" },
+      },
+      {
+        title: "Mail a check",
+        text: `Make it out to the CHS ${F} Robotics Stealth 4089 Booster Club and send it to:<br><strong>PO Box 1056, Duvall, WA 98019</strong>`,
+      },
+      {
+        title: "Double it with a matching gift",
+        // PRODUCT.md: never publish the booster club's EIN. FIRST Washington's is needed for the fallback route.
+        text: `Find the CHS ${F} Robotics Stealth 4089 Booster Club in your employer's matching system. Not listed? Give to ${F} Washington (EIN 45-2443839) instead, then email accounting@firstwa.org to designate it for Team 4089.`,
+      },
+      {
+        title: "Stock and donor-advised funds",
+        text: `Gifts of stock, donor-advised fund grants and other gifts go through ${F} Washington's finance team. Designate the gift for Team 4089.`,
+        link: { label: `Contact ${F} Washington`, href: "https://firstwa.org/contact-us/" },
+      },
+      {
+        title: "Become a sponsor",
+        text: "Business sponsors are recognized on our website, social media, robot, signage and team uniforms, depending on support level. Ask the booster club for the sponsor information packet.",
+      },
+      {
+        title: "Give your time",
+        text: "Adults can mentor. We can always use more help, and we meet Mondays and Wednesdays at 3 p.m. in the Cedarcrest High School shop.",
+      },
+    ],
+    contactLabel: "Questions about giving? Write to",
+    // The booster club's own wording; keep it exact.
+    fine: "All donations for Stealth Robotics are made to 501(c)(3) organizations. Contributions to organizations with 501(c)(3) status may be tax deductible. Please consult your tax professional to determine deductibility.",
+  },
+}
+
+// /sponsors: the showcase. Sponsors are thanked here, not on the giving page.
+export const sponsorsPage = {
+  meta: {
+    title: "Our sponsors · Stealth Robotics",
+    description: "The businesses and organizations that fund a full season for every Stealth Robotics team, FRC and FTC, at Cedarcrest High School in Duvall, WA.",
+  },
+  titleA: "Powered by",
+  titleB: "our sponsors",
+  lead: "From the first day of build season to the last match, every Stealth team, FRC and FTC, runs on our sponsors. Their support becomes the parts students build robots from, the tools in the Cedarcrest shop and the trip to every event. Just as important, it shows our students that local businesses and organizations believe in what they are building.",
+  photo: "/photos/PXL_20260316_001849702.jpg",
+  photoAlt: "Stealth and its alliance partners with their robots and the 2026 Glacier Peak event winner banner",
+  wallTitle: "Our 2025–26 sponsors",
+  sponsors: sponsors2026,
+  join: {
+    title: "Join them",
+    text: "Businesses, organizations and families of every size help keep Stealth building. Find the way to give that works for you.",
+    primary: "Become a sponsor",
+    href: "/donate",
+  },
 }
 
 export const join = {
@@ -213,6 +363,15 @@ export const join = {
     { src: "/photos/pit-03-wiring-closeup.jpg", alt: "Hands wiring the turret and cable chain" },
     { src: "/photos/pit-02-hands-on-robot-pit.jpg", alt: "Three team members working on Jeff in the pit" },
   ],
+}
+
+// Homepage closing band: the page's one red field.
+export const contactCta = {
+  title: "Get in touch",
+  text: "Thinking about joining, sponsoring or just want to see a robot up close? We would love to hear from you.",
+  primary: "Email us",
+  secondary: "Plan a visit to the shop",
+  secondaryHref: "/about#join",
 }
 
 export const footer = {

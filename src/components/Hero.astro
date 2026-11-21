@@ -47,11 +47,11 @@ import Nav from "@/components/Nav.astro"
         </h1>
         <p class="t-lead lead" data-enter="2" set:html={hero.lead} />
         <div class="actions" data-enter="3">
-          <a class="btn btn-red btn-nose" href="#join">
+          <a class="btn btn-red btn-nose" href="/about#join">
             {hero.primary}
             <span class="nose" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg></span>
           </a>
-          <a class="btn btn-ghost btn-nose" href="#sponsor">
+          <a class="btn btn-ghost btn-nose" href="/donate">
             {hero.secondary}
             <span class="nose" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg></span>
           </a>

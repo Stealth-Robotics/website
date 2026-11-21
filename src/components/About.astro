@@ -5,12 +5,11 @@ import { about } from "@/data/site"
 <section class="section about" id="about" aria-labelledby="about-title">
   <div class="wrap grid">
     <div class="copy">
-      <p class="t-label eyebrow">{about.eyebrow}</p>
       <h2 id="about-title" class="t-h2">
         {about.titleA} <span class="num t-stat red">{about.titleB}</span>
       </h2>
       {about.body.map((p) => <p class="t-body body" set:html={p} />)}
-      <a class="btn btn-ghost btn-nose" href="#teams">
+      <a class="btn btn-ghost btn-nose" href={about.ctaHref}>
         {about.cta}
         <span class="nose" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M2 9h13M9.5 3.5 15 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"></path></svg></span>
       </a>
@@ -22,9 +21,8 @@ import { about } from "@/data/site"
 </section>
 
 <style>
-  .about { background: var(--hull-1); }
+  .about { background: var(--hull-0); }
   .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
-  .eyebrow { color: var(--red-hot); margin-bottom: 1rem; }
   .num { display: block; margin-top: 0.25rem; font-size: 0.8em; letter-spacing: 0.04em; }
   .body { margin-top: 1.25rem; }
   .body:first-of-type { margin-top: 1.75rem; }

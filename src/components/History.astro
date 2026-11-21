@@ -19,7 +19,7 @@ import { history } from "@/data/site"
         ))
       }
     </ol>
-    <p class="ftc t-label">{history.ftc}</p>
+    <a class="more link" href={history.moreHref}>{history.more}</a>
   </div>
 </section>
 
@@ -36,8 +36,8 @@ import { history } from "@/data/site"
   .name { font-weight: 850; font-stretch: 72%; font-size: 1.45rem; text-transform: uppercase; line-height: 1.1; }
   .line { color: var(--ink-3); font-size: var(--text-small); }
   .hot .year { color: var(--red-hot); }
-  .ftc { margin-top: 2rem; letter-spacing: 0.1em; line-height: 1.6; }
   .hot .line { color: var(--ink-2); }
+  .more { display: inline-block; margin-top: 1.75rem; font-weight: 750; font-size: 0.875rem; letter-spacing: 0.08em; text-transform: uppercase; }
   @media (max-width: 899px) {
     .head { grid-template-columns: 1fr; }
     .head .t-lead { justify-self: start; }
