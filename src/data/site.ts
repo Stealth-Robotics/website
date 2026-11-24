@@ -357,7 +357,7 @@ export const join = {
   ],
   reasons: [
     { title: "Build a real robot", text: "Design it in Onshape, machine it, wire it, code it, then drive it on the field." },
-    { title: "Not only engineers", text: "Students also run the business side, including sponsorship." },
+    { title: "Beyond the technical", text: "Students run the whole team: fundraising, graphic design, media, outreach, project management and leadership." },
   ],
   primary: "Plan a visit to the shop",
   photo: { src: "/photos/IMG_20260403_144204_341.jpg", alt: "The Stealth team with the robot in front of the Cedarcrest High School sign" },
