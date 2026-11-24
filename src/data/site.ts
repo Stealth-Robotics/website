@@ -216,38 +216,41 @@ export type Sponsor = {
   wordmark?: { text: string; position: "above" | "below" | "right"; style: string }
 }
 
-// 2025–26 season sponsors of the whole program (FRC and FTC). Source: the end card of the 2026 "Robot Reveal: Jeff"
-// video (see PRODUCT.md). Add any FTC-only sponsors that card missed.
-const sponsors2026: Sponsor[] = [
-  { name: "Aldermoss", logo: "/sponsors/aldermoss.png", url: "https://aldermoss.com" },
-  { name: "Station 68" },
-  { name: "MOD Pizza", logo: "/sponsors/mod-pizza.svg", url: "https://modpizza.com" },
-  { name: "Gene Haas Foundation", logo: "/sponsors/gene-haas-foundation.png", url: "https://www.ghaasfoundation.org", size: "lg" },
-  {
-    name: "Sani-Tech", logo: "/sponsors/sani-tech.svg", url: "https://www.sanitech.net",
-    // Matches their lockup: heavy italic caps set above the auger mark.
-    wordmark: { text: "Sani-Tech", position: "above", style: "font-style:italic;font-weight:900;font-stretch:100%;letter-spacing:0.01em;color:#111" },
-  },
-  { name: "The Grange", logo: "/sponsors/the-grange.png", url: "https://thegrangeduvall.com", size: "lg" },
-  { name: "Google", logo: "/sponsors/google.svg", url: "https://www.google.com" },
+// 2025–26 season sponsors of the whole program (FRC and FTC). Started from the end card of the 2026 "Robot Reveal: Jeff"
+// video (see PRODUCT.md); updated 2026-11. Shown alphabetically so no sponsor reads as ranked; the sort below keeps
+// new entries in place, so add them anywhere.
+const byName = (s: Sponsor) => s.name.replace(/<[^>]+>/g, "")
+const sponsors2026: Sponsor[] = ([
   { name: "Boeing", logo: "/sponsors/boeing.svg", url: "https://www.boeing.com" },
-  { name: "Costco", logo: "/sponsors/costco.svg", url: "https://www.costco.com" },
-  { name: `${F} Washington`, logo: "/sponsors/first-washington.png", url: "https://firstwa.org" },
-  { name: "Microsoft", logo: "/sponsors/microsoft.svg", url: "https://www.microsoft.com" },
-  {
-    name: "Novelty Hill IP", logo: "/sponsors/novelty-hill-ip-mark.svg", url: "https://www.noveltyhillip.com",
-    // Matches noveltyhillip.com's header: the hex mark with widely tracked caps in deep indigo beside it.
-    wordmark: { text: "Novelty Hill IP", position: "right", style: "font-weight:600;font-stretch:100%;letter-spacing:0.22em;color:#241268" },
-  },
-  { name: "Issaquah Lumber", logo: "/sponsors/issaquah-lumber.png", url: "https://issaquahlumber.com" },
-  { name: "Riverview School District", logo: "/sponsors/riverview-school-district.png", url: "https://www.rsd407.org", size: "lg" },
   {
     name: "Cedarcrest High School", logo: "/sponsors/cedarcrest-high-school.png", url: "https://www.chs.rsd407.org",
     // The Red Wolves head carries no name; set it in the school's maroon underneath.
     wordmark: { text: "Cedarcrest High School", position: "below", style: "font-weight:850;font-stretch:74%;letter-spacing:0.02em;color:#7a1c25" },
   },
   { name: "Cedarcrest PTSA", logo: "/sponsors/cedarcrest-ptsa.jpg", url: "https://cedarcrestptsa.org", size: "lg" },
-]
+  { name: "Darci's Dinky Donuts & Espresso", logo: "/sponsors/darcis-dinky-donuts.png", url: "https://www.darcisdinkydonuts.com", size: "lg" },
+  { name: "ElderCare Placement Advisors", logo: "/sponsors/eldercare-placement-advisors.png", url: "https://www.ecp-advisors.com" },
+  { name: `${F} Washington`, logo: "/sponsors/first-washington.png", url: "https://firstwa.org" },
+  { name: "Gene Haas Foundation", logo: "/sponsors/gene-haas-foundation.png", url: "https://www.ghaasfoundation.org", size: "lg" },
+  { name: "Issaquah Lumber", logo: "/sponsors/issaquah-lumber.png", url: "https://issaquahlumber.com" },
+  { name: "Microsoft", logo: "/sponsors/microsoft.svg", url: "https://www.microsoft.com" },
+  { name: "MOD Pizza", logo: "/sponsors/mod-pizza.svg", url: "https://modpizza.com" },
+  {
+    name: "Novelty Hill IP", logo: "/sponsors/novelty-hill-ip-mark.svg", url: "https://www.noveltyhillip.com",
+    // Matches noveltyhillip.com's header: the hex mark with widely tracked caps in deep indigo beside it.
+    wordmark: { text: "Novelty Hill IP", position: "right", style: "font-weight:600;font-stretch:100%;letter-spacing:0.22em;color:#241268" },
+  },
+  // Logo from their brand kit (onlinemetals.com/en/brand-kit).
+  { name: "Online Metals", logo: "/sponsors/online-metals.svg", url: "https://www.onlinemetals.com" },
+  { name: "Riverview School District", logo: "/sponsors/riverview-school-district.png", url: "https://www.rsd407.org", size: "lg" },
+  {
+    name: "Sani-Tech", logo: "/sponsors/sani-tech.svg", url: "https://www.sanitech.net",
+    // Matches their lockup: heavy italic caps set above the auger mark.
+    wordmark: { text: "Sani-Tech", position: "above", style: "font-style:italic;font-weight:900;font-stretch:100%;letter-spacing:0.01em;color:#111" },
+  },
+  { name: "Station 68" },
+  { name: "Valley Mail", logo: "/sponsors/valley-mail.png", url: "https://www.duvalleymail.com", size: "lg" },
+] satisfies Sponsor[]).sort((a, b) => byName(a).localeCompare(byName(b), "en", { sensitivity: "base" }))
 
 // The homepage's red field: the short ask. How to give lives on /donate, the sponsor showcase on /sponsors.
 export const sponsor = {
@@ -279,7 +282,7 @@ export const donatePage = {
   titleA: "Support",
   titleB: "Stealth Robotics",
   lead: `Students design, build and code every Stealth robot, and they run the business side too. What they can't do alone is pay for it. Gifts from families, neighbors and local businesses are what keep our ${F} teams competing.`,
-  proof: "Backed by Boeing, Microsoft, Google, the Gene Haas Foundation and 12 more.",
+  proof: "Backed by Boeing, Microsoft, the Gene Haas Foundation and 13 more.",
   proofLink: "Meet our sponsors",
   proofHref: "/sponsors",
   online: { label: "Donate online", href: "https://secure.givelively.org/donate/washington-first-robotics/frc-4089" },
